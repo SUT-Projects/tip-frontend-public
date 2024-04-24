@@ -38,8 +38,8 @@
     "web-animations-js": "2.3.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.2.7",
-    "@angular/cli": "~14.2.7",
+    "@angular-devkit/build-angular": "^15.2.11",
+    "@angular/cli": "~15.2.11",
     "@angular/compiler-cli": "^15.2.10",
     "@angular/language-service": "15.2.10",
     "@types/jasmine": "~4.0.0",
