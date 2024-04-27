@@ -11,13 +11,14 @@
         (change)="onSelecting($event.target.value)"
       />{{option}}
     </div>
+    <div>{{feedback}}</div>
     <button class="prev" *ngIf="i>0" (click)="onPrev()">prev</button>
     <button class="next" (click)="onNext()">next</button>
   </div>
   
   <ng-template #showScore>
     <div class="score">
-      <h3>Score : {{this.score}}</h3>
+      <h3>Score : {{score}}</h3>
     </div>
   </ng-template>
   

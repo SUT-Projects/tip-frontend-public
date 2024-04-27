@@ -19,14 +19,21 @@ export class QuestionsComponent {
   }
   answer: any;
   score: any = 0;
+  feedback: any;
   onSelecting(value) {
     console.log(value);
     this.answer = value;
+    if (this.answer === this.question.correct_option) {
+    this.feedback = "GREAT FUCKING JOB";
+  } else {
+    this.feedback = "NOT GREAT"
   }
+}
 
   onPrev() {
     --this.i;
     this.question = this.questions[this.i];
+    this.feedback = "";
   }
 
   onNext() {
@@ -41,7 +48,7 @@ export class QuestionsComponent {
     console.log(this.i);
     console.log("Question : ", this.question);
     console.log("on click");
+    this.feedback = "";
   }
+  
 }
-
-
