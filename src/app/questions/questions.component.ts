@@ -20,21 +20,19 @@ export class QuestionsComponent {
   answer: any;
   score: any = 0;
   feedback: any;
+
+answerGiven: boolean = false;
+
   onSelecting(value) {
     console.log(value);
     this.answer = value;
     if (this.answer === this.question.correct_option) {
-    this.feedback = "GREAT FUCKING JOB";
+    this.feedback = "GREAT JOB";
   } else {
     this.feedback = "NOT GREAT"
   }
+  this.answerGiven = true;
 }
-
-  onPrev() {
-    --this.i;
-    this.question = this.questions[this.i];
-    this.feedback = "";
-  }
 
   onNext() {
     if (this.answer === this.question.correct_option) {
@@ -49,6 +47,7 @@ export class QuestionsComponent {
     console.log("Question : ", this.question);
     console.log("on click");
     this.feedback = "";
+    this.answerGiven = false;
   }
   
 }

@@ -7,12 +7,12 @@
         name="options"
         id="option1"
         value="{{option}}"
-        [checked]="true"
+        [checked]="false"
+        [disabled]="answerGiven"
         (change)="onSelecting($event.target.value)"
       />{{option}}
     </div>
     <div>{{feedback}}</div>
-    <button class="prev" *ngIf="i>0" (click)="onPrev()">prev</button>
     <button class="next" (click)="onNext()">next</button>
   </div>
   
