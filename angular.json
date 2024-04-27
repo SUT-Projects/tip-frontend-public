@@ -3,14 +3,14 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "argon-dashboard-angular": {
+    "COS60010-Quiz-App": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss"
+          "style": "scss"
         }
       },
       "architect": {
@@ -82,14 +82,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "argon-dashboard-angular:build"
+            "buildTarget": "COS60010-Quiz-App:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "argon-dashboard-angular:build:production"
+              "buildTarget": "COS60010-Quiz-App:build:production"
             },
             "development": {
-              "buildTarget": "argon-dashboard-angular:build:development"
+              "buildTarget": "COS60010-Quiz-App:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "argon-dashboard-angular:build"
+            "buildTarget": "COS60010-Quiz-App:build"
           }
         },
         "test": {
@@ -131,7 +131,7 @@
         }
       }
     },
-    "argon-dashboard-angular-e2e": {
+    "COS60010-Quiz-App-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -139,11 +139,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "argon-dashboard-angular:serve"
+            "devServerTarget": "COS60010-Quiz-App:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "argon-dashboard-angular:serve:production"
+              "devServerTarget": "COS60010-Quiz-App:serve:production"
             }
           }
         },
@@ -161,7 +161,7 @@
   },
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "scss"
+      "style": "scss"
     }
   },
   "cli": {
