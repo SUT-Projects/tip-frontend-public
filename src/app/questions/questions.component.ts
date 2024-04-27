@@ -50,6 +50,7 @@ answerGiven: boolean = false;
 
 
 buttonName: string = "Next Question";
+quizEnd: boolean = false;
   onNext() {
     if (this.answer === this.question.correct_option) {
       ++this.score;
@@ -73,11 +74,18 @@ buttonName: string = "Next Question";
     if (this.i == this.questions.length - 1) {
       this.buttonName = "Submit";
     }
-
-    if (this.buttonName == "Submit") {
-      this.endTime = this.minutes + " : " + this.seconds;
+    this.endTime = this.minutes + " : " + this.seconds;
+    
+    if (this.i == this.questions.length) {
+      this.quizEnd = true;
     }
+
+    console.log(this.quizEnd);
   }
+
+  
+  
+
   date: any = new Date();
   minutes: any = 0;
   seconds: any = 0;

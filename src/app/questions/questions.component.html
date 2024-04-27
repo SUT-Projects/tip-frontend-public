@@ -20,10 +20,11 @@
 </div>
   
 <ng-template #showScore>
-<div class="score">
-    <h3>Score : {{score}}</h3>
-    <div>Time taken: {{endTime}}</div>
-</div>
+  <div class="score">
+      <h3>Score : {{score}}</h3>
+      <div>Time taken: {{endTime}}</div>
+      <button [routerLink]="['/tables']" *ngIf="quizEnd == true">Finish</button>
+  </div>
 </ng-template>
 
 

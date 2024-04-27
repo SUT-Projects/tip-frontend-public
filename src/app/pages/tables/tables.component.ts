@@ -13,3 +13,4 @@ export class TablesComponent implements OnInit {
   }
 
 }
+

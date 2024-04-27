@@ -1,0 +1,6 @@
+<div *ngIf="started == false">
+<h1>Instruction</h1>
+<p>You have 5 minutes to complete this quiz. Press 'Start' to begin.</p>
+<button (click)="startQuiz()">Start</button>
+</div>
+<app-questions  *ngIf="started == true"></app-questions>

@@ -6,5 +6,8 @@ import { Component } from '@angular/core';
   styleUrl: './quiz.component.scss'
 })
 export class QuizComponent {
-  
+  started: boolean = false;
+  startQuiz() {
+    this.started = true;
+  }
 }
