@@ -13,12 +13,18 @@
       />{{option}}
     </div>
     <div>{{feedback}}</div>
-    <button class="next" (click)="onNext()">next</button>
-  </div>
-  
-  <ng-template #showScore>
-    <div class="score">
-      <h3>Score : {{score}}</h3>
+    <button class="next" (click)="onNext()">{{buttonName}}</button>
+    <div class="timer">
+        {{minutes}} : {{seconds}}
     </div>
-  </ng-template>
+</div>
   
+<ng-template #showScore>
+<div class="score">
+    <h3>Score : {{score}}</h3>
+    <div>Time taken: {{endTime}}</div>
+</div>
+</ng-template>
+
+
+
