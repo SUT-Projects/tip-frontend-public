@@ -41,9 +41,9 @@ answerGiven: boolean = false;
     console.log(value);
     this.answer = value;
     if (this.answer === this.question.correct_option) {
-    this.feedback = "GREAT JOB";
+    this.feedback = "That's correct!";
   } else {
-    this.feedback = "NOT GREAT"
+    this.feedback = "Nice try! The correct answer is " + this.question.correct_option + "."
   }
   this.answerGiven = true;
 }
@@ -91,4 +91,5 @@ quizEnd: boolean = false;
   seconds: any = 0;
   
   endTime: any = 0;
+  
 }

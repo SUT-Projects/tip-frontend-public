@@ -1,16 +1,18 @@
 <div *ngIf="question!=null; else showScore" class="question-box">
     <h3>Question {{i+1}}/{{totalQuestions}}</h3>
     <h3>{{question.question_text}}</h3>
-    <div class="options" *ngFor="let option of question.options">
+    <div (click)=onSelecting($event.target.value) *ngFor="let option of question.options">
       <input
-        type="radio"
+        class="options"
+        [class.disabled]="answerGiven"
+        [class.correct]="answer == question.correct_option && answer == option"
+        [class.wrong]="answer != question.correct_option && answer == option"
+        type="button"
         name="options"
-        id="option1"
+        id="option1" 
         value="{{option}}"
-        [checked]="false"
         [disabled]="answerGiven"
-        (change)="onSelecting($event.target.value)"
-      />{{option}}
+      />
     </div>
     <div>{{feedback}}</div>
     <button class="next" (click)="onNext()">{{buttonName}}</button>
@@ -26,6 +28,5 @@
       <button [routerLink]="['/tables']" *ngIf="quizEnd == true">Finish</button>
   </div>
 </ng-template>
-
 
 
