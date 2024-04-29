@@ -24,14 +24,14 @@ import { QuestionsComponent } from './questions/questions.component';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
     QuizComponent,
-    QuestionsComponent
+    QuestionsComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

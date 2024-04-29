@@ -19,7 +19,24 @@
         }
     }
 }
+.card-forum-image {
+    position: relative;
 
+    img {
+        max-width: 50px;
+        border-radius: $border-radius;
+        @extend .shadow;
+        transform: translate(-50%,-30%);
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transition: $transition-base;
+
+        &:hover {
+            transform: translate(-50%, -33%);
+        }
+    }
+}
 .card-profile-stats {
     padding: 1rem 0;
 
