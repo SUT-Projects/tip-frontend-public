@@ -23,7 +23,7 @@ import { QuizComponent } from './quiz/quiz.component';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
