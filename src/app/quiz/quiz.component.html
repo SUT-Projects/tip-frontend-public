@@ -1,6 +1,39 @@
-<div *ngIf="started == false">
+<div id="intro" *ngIf="started == false">
 <h1>Instruction</h1>
 <p>You have 5 minutes to complete this quiz. Press 'Start' to begin.</p>
 <button (click)="startQuiz()">Start</button>
 </div>
-<app-questions  *ngIf="started == true"></app-questions>
+<div *ngIf="started == true">
+
+    <div *ngIf="question!=null; else showScore" class="question-box">
+        <h3>Question {{i+1}}/{{totalQuestions}}</h3>
+        <h3>{{question.question_text}}</h3>
+        <div (click)=onSelecting($event.target.value) *ngFor="let option of question.options">
+          <input
+            class="options"
+            [class.disabled]="answerGiven"
+            [class.correct]="answer == question.correct_option && answer == option"
+            [class.wrong]="answer != question.correct_option && answer == option"
+            type="button"
+            name="options"
+            id="option1" 
+            value="{{option}}"
+            [disabled]="answerGiven"
+          />
+        </div>
+        <div>{{feedback}}</div>
+        <button class="next" (click)="onNext()">{{buttonName}}</button>
+        <div class="timer">
+            {{minutes}} : {{seconds}}
+        </div>
+    </div>
+      
+    <ng-template #showScore>
+      <div class="score">
+          <h3>Score : {{score}} / {{questions.length}}</h3>
+          <div>Time taken: {{endTime}}</div>
+          <button [routerLink]="['/tables']" *ngIf="quizEnd == true">Finish</button>
+      </div>
+    </ng-template>
+    
+</div>

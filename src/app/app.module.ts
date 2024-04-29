@@ -13,7 +13,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { QuizComponent } from './quiz/quiz.component';
-import { QuestionsComponent } from './questions/questions.component';
 
 
 @NgModule({
@@ -30,8 +29,7 @@ import { QuestionsComponent } from './questions/questions.component';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    QuizComponent,
-    QuestionsComponent,
+    QuizComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
