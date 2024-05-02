@@ -6,7 +6,7 @@
     </div>
   </div>
   <!-- Page content -->
-  <div class="container-fluid mt--7">
+  <div *ngIf="!open_create_interface" class="container-fluid mt--7">
     <!-- Table -->
     <div class="row">
       <div class="col">
@@ -14,6 +14,9 @@
           <div class="card-header border-0">
             <h3 class="mb-0">User Information</h3>
           </div>
+          <button (click)="sortBy('name')">Sort by Name</button>
+          <button (click)="sortBy('email')">Sort by Email</button>
+          <button (click)="sortBy('user_type')">Sort by Role</button>
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
@@ -31,7 +34,8 @@
                 <tbody>
 
 
-
+                    
+                    
                   <tr *ngFor="let user of all_user">
                     <th scope="row">
                       <div class="media align-items-center">
@@ -71,8 +75,8 @@
                         </div>
                       </td>-->
                       <td>
-                        <button (click)="edit_user">Edit</button><br>
-                        <button (click)="delete_user">Delete</button>
+                        <button (click)="edit_user(user)">Edit</button><br>
+                        <button (click)="delete_user(user)">Delete</button>
                       </td>
                   </tr>
   
@@ -83,10 +87,44 @@
             </table>
              </div>
              <br>
-             <button (click)="create_user">Create</button>
+             <button (click)="create_button()">Create</button>
          
         </div>
       </div>
     </div>
+  </div>
+
+
+  <div id="creation_interface" *ngIf="open_create_interface">
+    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
+        <input type="hidden" name="userId" [ngModel]="selectedUser?._id">
+        <h1>{{ selectedUser? 'Update' : 'Create' }} User</h1>
+        <fieldset>
+        <legend>Role</legend>
+        <input type="radio" name="role" value="admin" [checked]="selectedUser?.user_type === 'admin'" [(ngModel)]="selectedUser && selectedUser.user_type">
+        <label for="admin">Admin</label><br>
+        <input type="radio" name="role" value="tutor" [checked]="selectedUser?.user_type === 'tutor'" [(ngModel)]="selectedUser && selectedUser.user_type">
+        <label for="tutor">Tutor</label><br>
+        <input type="radio" name="role" value="student" [checked]="selectedUser?.user_type === 'student'" [(ngModel)]="selectedUser && selectedUser.user_type">
+        <label for="student">Student</label>
+    </fieldset>
+    <fieldset>
+        <legend>Details</legend>
+        <label for="name">Name: </label>
+        <input type="text" name="name" [(ngModel)]="selectedUser && selectedUser.name" required><br>
+
+        <label for="student_id">Student ID: </label>
+        <input type="text" name="student_id" [(ngModel)]="selectedUser && selectedUser.student_id"><br>
+
+        <label for="email">Email: </label>
+        <input type="text" name="email" [(ngModel)]="selectedUser && selectedUser.email" required><br>
+
+        <label for="password">Password: </label>
+        <input type="text" name="password" [(ngModel)]="selectedUser && selectedUser.password" required>
+    </fieldset>
+    <button type="submit" *ngIf="selectedUser">Update User</button>
+    <button type="submit" *ngIf="selectedUser == null">Create User</button>
+    </form>
+    <button (click)="open_create_interface = !open_create_interface">Return</button>
   </div>
   
