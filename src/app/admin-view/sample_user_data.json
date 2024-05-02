@@ -1,0 +1,40 @@
+[{
+    "_id": "user1",
+    "user_type": "admin",
+    "email": "admin1@instatute.edu.au",
+    "password": "12345678",
+    "name": "Steven Chin",
+    "student_id": "NA"
+  },
+  {
+    "_id": "user2",
+    "user_type": "tutor",
+    "email": "tutor1@instatute.edu.au",
+    "password": "88888888",
+    "name": "Mister Batman",
+    "student_id": "NA"
+  },
+  {
+    "_id": "user3",
+    "user_type": "tutor",
+    "email": "tutor2@instatute.edu.au",
+    "password": "verycool9",
+    "name": "Cool Guy",
+    "student_id": "NA"
+  },
+  {
+    "_id": "user4",
+    "user_type": "student",
+    "email": "student1@instatute.edu.au",
+    "password": "abcabcabc",
+    "name": "Sally",
+    "student_id": "00000001"
+  },
+  {
+    "_id": "user5",
+    "user_type": "student",
+    "email": "student2@instatute.edu.au",
+    "password": "zzzzzzzz",
+    "name": "Sleepy Head",
+    "student_id": "00000002"
+  }]
