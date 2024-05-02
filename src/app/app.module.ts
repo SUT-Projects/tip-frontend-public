@@ -13,7 +13,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { QuizComponent } from './quiz/quiz.component';
+
+import { ResultComponent } from './tools/result/result.component';
+import { CreatePostComponent } from './tools/create-post/create-post.component';
+
 import { AdminViewComponent } from './admin-view/admin-view.component';
+
 
 
 @NgModule({
@@ -24,14 +29,18 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     ComponentsModule,
     NgbModule,
     RouterModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    QuizComponent,
+
+    ResultComponent,
+    CreatePostComponent,
+
     AdminViewComponent
+
   ],
   providers: [],
   bootstrap: [AppComponent]
