@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ResultComponent } from 'src/app/tools/result/result.component';
 
 @Component({
   selector: 'app-tables',
@@ -8,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class TablesComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private modalService: NgbModal) { }
 
   ngOnInit() {
   }
@@ -16,6 +18,6 @@ export class TablesComponent implements OnInit {
   startQuiz(quizId: string) {
     this.router.navigate(['/tables', quizId]);
   }
-  
+
 }
 

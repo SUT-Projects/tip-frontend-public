@@ -59,7 +59,7 @@
                         </a>
                         <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
                           <a class="dropdown-item" (click)="startQuiz('questions_2')" [routerLink]="['/tables/quiz']">Start Quiz</a>
-                          <a class="dropdown-item" href="javascript:void(0)">View Result</a>
+                          <button type="button" class="dropdown-item"  data-toggle="modal" data-target="#staticBackdrop">View Result</button>
                         </div>
                       </div>
                     </td>
@@ -91,7 +91,7 @@
                         </a>
                         <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
                           <a class="dropdown-item" (click)="startQuiz('questions_1')" [routerLink]="['/tables/quiz']">Start Quiz</a>
-                          <a class="dropdown-item" href="javascript:void(0)">View Result</a>
+                          <button type="button" class="dropdown-item"  data-toggle="modal" data-target="#staticBackdrop">View Result</button>
                         </div>
                       </div>
                     </td>
@@ -101,6 +101,34 @@
           </table>
         </div>
        
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollables">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Quizz Result</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-center">
+          <div class="progress blue">
+            <span class="progress-left">
+            <span class="progress-bar"></span>
+          </span>
+                  <span class="progress-right">
+                      <span class="progress-bar"></span>
+                  </span>
+                  <div class="progress-value">90%</div>
+              </div>
+            </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
