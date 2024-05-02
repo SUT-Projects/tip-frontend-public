@@ -1,1 +1,92 @@
-<p>admin-view works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-body">
+       
+      </div>
+    </div>
+  </div>
+  <!-- Page content -->
+  <div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <h3 class="mb-0">User Information</h3>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">User Type</th>
+                  <th scope="col">Name</th>
+                  <!--<th scope="col">Status</th>
+                  <th scope="col">Users</th>-->
+                  <th scope="col">Email</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tbody>
+
+
+
+                  <tr *ngFor="let user of all_user">
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{user.user_type}}</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td>
+                        {{user.name}}
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <span class="mr-2">{{user.email}}</span>
+                     
+                      </div>
+                    </td>
+                    <td>
+                        <span *ngIf="user.showPassword == true">
+                        {{user.password}}
+                        <button id={{user._id}} (click)="toggle_pass(user)"><img id="hide" src="../../assets/img/icons/common/hide.png" width="15" style="text-align: bottom;"></button>
+                        </span>
+                        
+                        <span *ngIf="user.showPassword == false">
+                        &#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;
+                        <button id={{user._id}} (click)="toggle_pass(user)"><img id="show" src="../../assets/img/icons/common/show.png" width="15" style="text-align: bottom;"></button>
+                        </span>
+                    </td>
+                      <!--<td class="text-right">
+                        <div ngbDropdown placement="bottom-right">
+                          <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
+                            <i class="fas fa-ellipsis-v"></i>
+                          </a>
+                          <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
+                            <a class="dropdown-item" href="javascript:void(0)">View Result</a>
+                          </div>
+                        </div>
+                      </td>-->
+                      <td>
+                        <button (click)="edit_user">Edit</button><br>
+                        <button (click)="delete_user">Delete</button>
+                      </td>
+                  </tr>
+  
+
+
+              </tbody>
+              
+            </table>
+             </div>
+             <br>
+             <button (click)="create_user">Create</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  
