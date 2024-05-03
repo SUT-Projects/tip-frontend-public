@@ -45,6 +45,7 @@ export class ForumComponent {
 
   create_comment(commentForm, post) {
     const content = commentForm.value.content;
+    console.log(content);
     const dateNow: any = new Date();
 
     const newComment = {
@@ -73,11 +74,17 @@ export class ForumComponent {
       created_at: created_at,
       author: {
         name: author_name
-      }
+      },
+      comments: [{
+        created_at: {},
+        author: {
+          name: {}
+        }
+      }]
     };
 
     this.posts.push(newPost);
-
+    console.log(this.posts);
 
     this.open_create_post_interface = !this.open_create_post_interface;
 

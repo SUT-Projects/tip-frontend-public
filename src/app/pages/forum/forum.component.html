@@ -72,7 +72,7 @@
               <div *ngFor="let comment of post.comments">
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="comment.author.name.length > 0">
                       <p>{{ comment.author.name }} [{{ comment.created_at }}]: {{ comment.content }}</p>
                       <button (click)="like_unlike(comment)" *ngIf="!comment.liked"><img src="../../assets/img/icons/common/thumbs-up.png" width="15" style="text-align: center;"></button> 
                       <button (click)="like_unlike(comment)" *ngIf="comment.liked"><img src="../../assets/img/icons/common/thumbs-up-color.png" width="15" style="text-align: center;"></button> 
@@ -85,7 +85,7 @@
                 <div class="col-md-12">
                   <div class="input-group">
                     <form #commentForm="ngForm" (ngSubmit)="create_comment(commentForm, post)">
-                      <input id="input-comments" class="form-control form-control-alternative" placeholder="Enter your comments" type="text">
+                      <input name="content" id="input-comments" class="form-control form-control-alternative" placeholder="Enter your comments" type="text" ngModel required>
                       <div class="input-group-append">
                         <button class="btn btn-outline-primary" id="send-button" type="submit">Send</button>
                       </div>
