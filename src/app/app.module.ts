@@ -18,6 +18,7 @@ import { ResultComponent } from './tools/result/result.component';
 import { CreatePostComponent } from './tools/create-post/create-post.component';
 
 import { AdminViewComponent } from './admin-view/admin-view.component';
+import { TutorQuizComponent } from './tutor-quiz/tutor-quiz.component';
 
 
 

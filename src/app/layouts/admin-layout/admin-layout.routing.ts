@@ -6,7 +6,7 @@ import { TablesComponent } from '../../pages/tables/tables.component';
 import { QuizComponent } from '../../quiz/quiz.component';
 import { ForumComponent } from '../../pages/forum/forum.component';
 import { AdminViewComponent } from '../../admin-view/admin-view.component';
-
+import { TutorQuizComponent } from '../../tutor-quiz/tutor-quiz.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -14,5 +14,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tables',         component: TablesComponent },
     { path: 'forum',         component: ForumComponent },
     { path: 'tables/:quizId',         component: QuizComponent },
-    { path: 'admin-view',       component: AdminViewComponent}
+    { path: 'admin-view',       component: AdminViewComponent},
+    { path: 'tutor-quiz',       component: TutorQuizComponent}
 ];
