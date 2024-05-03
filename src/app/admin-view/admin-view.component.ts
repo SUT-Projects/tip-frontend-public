@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import user_list from './sample_user_data.json'
+import user_list from './sample_user_data.json';
 import { isEmpty } from 'rxjs';
 
 
@@ -39,7 +39,6 @@ export class AdminViewComponent {
     const userType = userForm.value.role;
 
     const newUser = {
-      _id: 'user' + (this.all_user.length + 1),
       user_type: userType,
       name: name,
       email: email,
