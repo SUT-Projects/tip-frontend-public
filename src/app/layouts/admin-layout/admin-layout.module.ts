@@ -12,6 +12,8 @@ import { UserProfileComponent } from '../../pages/user-profile/user-profile.comp
 import { TablesComponent } from '../../pages/tables/tables.component';
 import { ForumComponent } from '../../pages/forum/forum.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminViewComponent } from '../../admin-view/admin-view.component';
+import { QuizComponent } from '../../quiz/quiz.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -27,7 +29,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DashboardComponent,
     UserProfileComponent,
     TablesComponent, 
-    ForumComponent
+    ForumComponent,
+    AdminViewComponent,
+    QuizComponent
   ]
 })
 

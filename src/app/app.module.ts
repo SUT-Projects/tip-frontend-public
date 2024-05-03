@@ -37,9 +37,7 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     AuthLayoutComponent,
 
     ResultComponent,
-    CreatePostComponent,
-
-    AdminViewComponent
+    CreatePostComponent
 
   ],
   providers: [],
