@@ -1,3 +1,4 @@
+
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
       <div class="header-body">
@@ -5,6 +6,7 @@
       </div>
     </div>
   </div>
+
   <!-- Page content -->
   <div *ngIf="!open_create_interface" class="container-fluid mt--7">
     <!-- Table -->
@@ -75,7 +77,7 @@
                         </div>
                       </td>-->
                       <td>
-                        <button (click)="edit_user(user)">Edit</button><br>
+                        <button (click)="edit_user(user, userForm)">Edit</button><br>
                         <button (click)="delete_user(user)">Delete</button>
                       </td>
                   </tr>
@@ -94,22 +96,22 @@
     </div>
   </div>
 
-
+  <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
   <div id="creation_interface" *ngIf="open_create_interface">
-    <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
         <input type="hidden" name="userId" [ngModel]="selectedUser?._id">
         <h1>{{ selectedUser? 'Update' : 'Create' }} User</h1>
         <fieldset>
         <legend>Role</legend>
-        <input type="radio" name="role" value="admin" [checked]="selectedUser?.user_type === 'admin'" [(ngModel)]="selectedUser && selectedUser.user_type">
+        <input type="radio" name="role" value="admin" checked="selectedUser?.user_type === 'admin'" [(ngModel)]="selectedUser && selectedUser.user_type">
         <label for="admin">Admin</label><br>
-        <input type="radio" name="role" value="tutor" [checked]="selectedUser?.user_type === 'tutor'" [(ngModel)]="selectedUser && selectedUser.user_type">
+        <input type="radio" name="role" value="tutor" checked="selectedUser?.user_type === 'tutor'" [(ngModel)]="selectedUser && selectedUser.user_type">
         <label for="tutor">Tutor</label><br>
-        <input type="radio" name="role" value="student" [checked]="selectedUser?.user_type === 'student'" [(ngModel)]="selectedUser && selectedUser.user_type">
+        <input type="radio" name="role" value="student" checked="selectedUser?.user_type === 'student'" [(ngModel)]="selectedUser && selectedUser.user_type">
         <label for="student">Student</label>
     </fieldset>
     <fieldset>
         <legend>Details</legend>
+
         <label for="name">Name: </label>
         <input type="text" name="name" [(ngModel)]="selectedUser && selectedUser.name" required><br>
 
@@ -122,9 +124,9 @@
         <label for="password">Password: </label>
         <input type="text" name="password" [(ngModel)]="selectedUser && selectedUser.password" required>
     </fieldset>
-    <button type="submit" *ngIf="selectedUser">Update User</button>
+    <!--<button type="submit" *ngIf="selectedUser">Update User</button>-->
     <button type="submit" *ngIf="selectedUser == null">Create User</button>
-    </form>
-    <button (click)="open_create_interface = !open_create_interface">Return</button>
+    
+    <button (click)="cancel_change()">Return</button>
   </div>
-  
+</form>

@@ -7,6 +7,7 @@ import { QuizComponent } from '../../quiz/quiz.component';
 import { ForumComponent } from '../../pages/forum/forum.component';
 import { AdminViewComponent } from '../../admin-view/admin-view.component';
 import { TutorQuizComponent } from '../../tutor-quiz/tutor-quiz.component';
+import { TutorQuizEditComponent } from '../../tutor-quiz-edit/tutor-quiz-edit.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -15,5 +16,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'forum',         component: ForumComponent },
     { path: 'tables/:quizId',         component: QuizComponent },
     { path: 'admin-view',       component: AdminViewComponent},
-    { path: 'tutor-quiz',       component: TutorQuizComponent}
+    { path: 'tutor-quiz',       component: TutorQuizComponent},
+    { path: 'tutor-quiz/:quizId',         component: TutorQuizEditComponent }
 ];
