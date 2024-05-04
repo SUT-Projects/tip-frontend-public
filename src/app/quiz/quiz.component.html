@@ -12,9 +12,8 @@
           <input
             class="options"
             [class.disabled]="answerGiven"
-[class.correct]="answer == question.correct_option && answer == option"
-[class.wrong]="answer != question.correct_option && answer == option"
-            
+            [class.correct]="answer == question.correct_option && answer == option"
+            [class.wrong]="answer != question.correct_option && answer == option"
             type="button"
             name="options"
             id="option1" 

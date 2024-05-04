@@ -1,0 +1,71 @@
+[
+  {
+    "_id": "609de3fe468ad9f46b0e38ab", 
+    "title": "Discussion about MongoDB Schema Design",
+    "author": {
+      "_id": "609de3fe468ad9f46b0e38ac",
+      "name": "Elizabeth Wayne"
+    },
+    "content": "What are some best practices for designing MongoDB schemas for different use cases?",
+    "created_at": "09/02/2024",
+    "last_updated_at": "11/02/2024",
+    "comments": [
+      {
+        "_id": "609de3fe468ad9f46b0e38ad", 
+        "author": {
+          "_id": "609de3fe468ad9f46b0e38ae", 
+          "name": "Steven Chin"
+        },
+        "content": "I think it depends on the specific requirements of your application. Can you provide more details?",
+        "created_at": "11/02/2024",
+        "likes": 5
+      },
+      {
+        "_id": "609de3fe468ad9f46b0e38af", 
+        "author": {
+          "_id": "609de3fe468ad9f46b0e38b0",
+          "name": "Mai Nguyen"
+        },
+        "content": "I agree. It's important to consider factors like data access patterns and scalability.",
+        "created_at": "11/02/2024",
+        "likes": 20
+      }
+      
+    ]
+  },
+
+  {
+    "_id": "609de3fe468ad9f46b0e38b1", 
+    "title": "When is school holiday?",
+    "author": {
+      "_id": "609de3fe468ad9f46b0e38ae",
+      "name": "Steven Chin"
+    },
+    "content": "When is school holiday? x2",
+    "created_at": "03/05/2024",
+    "last_updated_at": "03/05/2024",
+    "comments": [
+      {
+        "_id": "609de3fe468ad9f46b0e38b3", 
+        "author": {
+          "_id": "609de3fe468ad9f46b0e38ae", 
+          "name": "Steven Chin"
+        },
+        "content": "When is school holiday? x3",
+        "created_at": "03/05/2024",
+        "likes": 55000
+      },
+      {
+        "_id": "609de3fe468ad9f46b0e38b5", 
+        "author": {
+          "_id": "609de3fe468ad9f46b0e38b0",
+          "name": "Mai Nguyen"
+        },
+        "content": "No idea.",
+        "created_at": "03/05/2024",
+        "likes": 1
+      }
+      
+    ]
+  }
+]

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ResultComponent } from 'src/app/tools/result/result.component';
+//import { ResultComponent } from 'src/app/tools/result/result.component';
 
 @Component({
   selector: 'app-tables',
