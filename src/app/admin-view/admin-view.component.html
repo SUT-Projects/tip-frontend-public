@@ -1,10 +1,10 @@
-<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+<div class="header bg-gradient-danger pb-2 pt-5 pt-md-8">
     <div class="container-fluid">
-      <div class="header-body">
+      <div class="header-header">
        
       </div>
     </div>
-  </div>
+</div>
   <!-- Page content -->
   <div *ngIf="!open_create_interface" class="container-fluid mt--7">
     <!-- Table -->
@@ -14,9 +14,11 @@
           <div class="card-header border-0">
             <h3 class="mb-0">User Information</h3>
           </div>
-          <button (click)="sortBy('name')">Sort by Name</button>
-          <button (click)="sortBy('email')">Sort by Email</button>
-          <button (click)="sortBy('user_type')">Sort by Role</button>
+          <div class="card-body">
+          <button type="button" class="btn btn-outline-primary" (click)="sortBy('name')">Sort by Name</button>
+          <button type="button" class="btn btn-outline-primary" (click)="sortBy('email')">Sort by Email</button>
+          <button type="button" class="btn btn-outline-primary" (click)="sortBy('user_type')">Sort by Role</button>
+          </div>
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
@@ -56,12 +58,12 @@
                     <td>
                         <span *ngIf="user.showPassword == true">
                         {{user.password}}
-                        <button id={{user._id}} (click)="toggle_pass(user)"><img id="hide" src="../../assets/img/icons/common/hide.png" width="15" style="text-align: bottom;"></button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" id={{user._id}} (click)="toggle_pass(user)"><img id="hide" src="../../assets/img/icons/common/hide.png" width="15" style="text-align: bottom;"></button>
                         </span>
                         
                         <span *ngIf="user.showPassword == false">
                         &#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;
-                        <button id={{user._id}} (click)="toggle_pass(user)"><img id="show" src="../../assets/img/icons/common/show.png" width="15" style="text-align: bottom;"></button>
+                        <button type="button" class="btn btn-outline-primary btn-sm  " id={{user._id}} (click)="toggle_pass(user)"><img id="show" src="../../assets/img/icons/common/show.png" width="15" style="text-align: bottom;"></button>
                         </span>
                     </td>
                       <!--<td class="text-right">
@@ -75,8 +77,8 @@
                         </div>
                       </td>-->
                       <td>
-                        <button (click)="edit_user(user)">Edit</button><br>
-                        <button (click)="delete_user(user)">Delete</button>
+                        <button type="button" class="btn btn-primary" (click)="edit_user(user)">Edit</button>
+                        <button type="button" class="btn btn-outline-primary" (click)="delete_user(user)">Delete</button>
                       </td>
                   </tr>
   
@@ -87,7 +89,7 @@
             </table>
              </div>
              <br>
-             <button (click)="create_button()">Create</button>
+             <button type="button" class="btn btn-primary" (click)="create_button()">Create</button>
          
         </div>
       </div>
