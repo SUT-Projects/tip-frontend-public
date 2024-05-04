@@ -10,234 +10,86 @@
       </div>
     </div>
 </div>
-<div class="container-fluid mt--7">
-  <div class="row">
-    <div class="col-xl-4 order-xl-2 mb-10 mb-xl-0">
-      <div class="col">
-        <div class="card card-profile shadow">
-          <div class="card-body pt-0 pt-md-10">
-          <div class="card-profile-stats d-flex justify-content-center mt-md-10">
-            <div class="col-md-12">
-              <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#staticBackdrop">Create post</button>
-              <div class="card-profile-stats d-flex justify-content-center mt-md-10">
-                <div>
-                  <span class="heading">22</span>
-                  <span class="description">Friends</span>
-                </div>
-                <div>
-                  <span class="heading">10</span>
-                  <span class="description">Photos</span>
-                </div>
-                <div>
-                  <span class="heading">89</span>
-                  <span class="description">Comments</span>
-                </div>
+<div *ngIf="!open_create_post_interface">
+  <div class="container-fluid mt--7">
+    <div class="row">
+      <div class="col-xl-4 order-xl-2 mb-10 mb-xl-0">
+        <div class="col">
+          <div class="card card-profile shadow">
+            <div class="card-body pt-0 pt-md-10">
+            <div class="card-profile-stats d-flex justify-content-center mt-md-10">
+              <div class="col-md-12">
+                <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#staticBackdrop" (click)="open_create_post_interface = !open_create_post_interface">Create post</button>
+                <!--<div class="card-profile-stats d-flex justify-content-center mt-md-10">
+                  <div>
+                    <span class="heading">22</span>
+                    <span class="description">Friends</span>
+                  </div>
+                  <div>
+                    <span class="heading">10</span>
+                    <span class="description">Photos</span>
+                  </div>
+                  <div>
+                    <span class="heading">89</span>
+                    <span class="description">Comments</span>
+                  </div>
+                </div>-->
               </div>
             </div>
-          </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <!--1st Forum post-->
-    <div class="col-xl-8 order-xl-1">
-      <div class="card bg-secondary shadow">
-        <div class="card-header bg-white border-0">
-          <div class="row align-items-center">
-            <div class="col-lg-1">
-              <div class="card-forum-image">
-                <img src="assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
+      <!--Forum post-->
+    
+      <div class="col-xl-8 order-xl-1" *ngFor="let post of posts">
+        <div class="card bg-secondary shadow">
+          <div class="card-header bg-white border-0">
+            <div class="row align-items-center">
+              <div class="col-lg-1">
+                <!--<div class="card-forum-image">
+                  <img src="assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
+                </div>-->
               </div>
-            </div>
-            <div class="col-lg-11">
-              <div class="card-forum-image">
-                <span class="heading">Elizabeth W.</span>
-                <span class="description">Posted 09/02/2024</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="pl-lg-4">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <p>Hi guys, I am currently in class COS60010 and I could not access my account, still waiting for IT to help. Could someone please let me know when will be the deadline for the assignment 02? Thank you!</p>
+              <div class="col-lg-11">
+                <div class="card-forum-image">
+                  <span class="heading">{{ post.title }}  </span><br>
+                  <span class="description">Posted {{ post.created_at }}</span>
+                  <span class="description"> by {{ post.author.name }}</span>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="input-group">
-                  <input id="input-comments" class="form-control form-control-alternative" placeholder="Enter your comments" type="text">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-primary" id="send-button">Send</button>
+          </div>
+          <div class="card-body">
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <p style="font-weight: bold;">{{ post.author.name }} [{{ post.created_at }}]: {{ post.content }}</p>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--2nd Forum post-->
-    <div class="col-xl-8 order-xl-2">
-      <div class="card bg-secondary shadow">
-        <div class="card-header bg-white border-0">
-          <div class="row align-items-center">
-            <div class="col-lg-1">
-              <div class="card-forum-image">
-                <img src="assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
-              </div>
-            </div>
-            <div class="col-lg-11">
-              <div class="card-forum-image">
-                <span class="heading">Elizabeth W.</span>
-                <span class="description">Posted 09/02/2024</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="pl-lg-4">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <p>Hi guys, I am currently in class COS60010 and I could not access my account, still waiting for IT to help. Could someone please let me know when will be the deadline for the assignment 02? Thank you!</p>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="input-group">
-                  <input id="input-comments" class="form-control form-control-alternative" placeholder="Enter your comments" type="text">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-primary" id="send-button">Send</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-        <!--2nd Forum post-->
-    <div class="col-xl-8 order-xl-2">
-      <div class="card bg-secondary shadow">
-        <div class="card-header bg-white border-0">
-          <div class="row align-items-center">
-            <div class="col-lg-1">
-              <div class="card-forum-image">
-                <img src="assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
-              </div>
-            </div>
-            <div class="col-lg-11">
-              <div class="card-forum-image">
-                <span class="heading">Elizabeth W.</span>
-                <span class="description">Posted 09/02/2024</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="pl-lg-4">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <p>Hi guys, I am currently in class COS60010 and I could not access my account, still waiting for IT to help. Could someone please let me know when will be the deadline for the assignment 02? Thank you!</p>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="input-group">
-                  <input id="input-comments" class="form-control form-control-alternative" placeholder="Enter your comments" type="text">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-primary" id="send-button">Send</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--3rd Forum post-->
-    <div class="col-xl-8 order-xl-2">
-      <div class="card bg-secondary shadow">
-        <div class="card-header bg-white border-0">
-          <div class="row align-items-center">
-            <div class="col-lg-1">
-              <div class="card-forum-image">
-                <img src="assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
-              </div>
-            </div>
-            <div class="col-lg-11">
-              <div class="card-forum-image">
-                <span class="heading">Elizabeth W.</span>
-                <span class="description">Posted 09/02/2024</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="pl-lg-4">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <p>Hi guys, I am currently in class COS60010 and I could not access my account, still waiting for IT to help. Could someone please let me know when will be the deadline for the assignment 02? Thank you!</p>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="input-group">
-                  <input id="input-comments" class="form-control form-control-alternative" placeholder="Enter your comments" type="text">
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-primary" id="send-button">Send</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--4th Forum post-->
-    <div class="col-xl-8 order-xl-2">
-      <div class="card bg-secondary shadow">
-        <div class="card-header bg-white border-0">
-          <div class="row align-items-center">
-            <div class="col-lg-1">
-              <div class="card-forum-image">
-                <img src="assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
-              </div>
-            </div>
-            <div class="col-lg-11">
-              <div class="card-forum-image">
-                <span class="heading">Elizabeth W.</span>
-                <span class="description">Posted 09/02/2024</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="pl-lg-4">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <p>Hi guys, I am currently in class COS60010 and I could not access my account, still waiting for IT to help. Could someone please let me know when will be the deadline for the assignment 02? Thank you!</p>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <div class="input-group">
-                    <input id="input-comments" class="form-control form-control-alternative" placeholder="Enter your comments" type="text">
-                    <div class="input-group-append">
-                      <button class="btn btn-outline-primary" id="send-button">Send</button>
+              <div *ngFor="let comment of post.comments">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group" *ngIf="comment.author.name.length > 0">
+                      <p>{{ comment.author.name }} [{{ comment.created_at }}]: {{ comment.content }}</p>
+                      <button (click)="like_unlike(comment)" *ngIf="!comment.liked"><img src="../../assets/img/icons/common/thumbs-up.png" width="15" style="text-align: center;"></button> 
+                      <button (click)="like_unlike(comment)" *ngIf="comment.liked"><img src="../../assets/img/icons/common/thumbs-up-color.png" width="15" style="text-align: center;"></button> 
+                      {{ comment.likes }}
                     </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <form #commentForm="ngForm" (ngSubmit)="create_comment(commentForm, post)">
+                      <input name="content" id="input-comments" class="form-control form-control-alternative" placeholder="Enter your comments" type="text" ngModel required>
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-primary" id="send-button" type="submit">Send</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -247,4 +99,27 @@
       </div>
     </div>
   </div>
+</div>
+
+
+
+
+
+
+
+
+<div id="create_post_interface" *ngIf="open_create_post_interface">
+  <form #postForm="ngForm" (ngSubmit)="create_post(postForm)">
+      <!--<input type="hidden" name="userId" [ngModel]="selectedUser?._id">-->
+      <h1>Create Post</h1>
+  <fieldset>
+      <label for="title">Title: </label>
+      <textarea type="textbox" name="title" ngModel required></textarea><br>
+
+      <label for="content">Content: </label>
+      <textarea type="textbox" name="content" ngModel required="required"></textarea><br>
+  </fieldset>
+  <button type="submit">Confirm</button>
+  </form>
+  <button (click)="open_create_post_interface = !open_create_post_interface">Return</button>
 </div>

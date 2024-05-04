@@ -45,6 +45,7 @@ export class QuizComponent {
       this.loadQuizData();
     })
 
+    console.log(this.started);
     console.log(this.questions[0]);
     console.log(this.question);
 
