@@ -66,14 +66,21 @@ export class AdminViewComponent {
     }
   }
 
+
   edit_user (user) {
     this.open_create_interface = !this.open_create_interface
     this.selectedUser = user;
+    
+  }
 
+  cancel_change () {
+  
+    this.open_create_interface = !this.open_create_interface;
   }
 
   submitForm (userForm) {
     if (this.selectedUser != null) {
+      console.log(userForm.value)
       this.update_user(userForm.value);
       
     } else {
@@ -84,13 +91,15 @@ export class AdminViewComponent {
   }
 
   update_user(updatedUser) {
-    const index = this.all_user.findIndex(user => user._id === updatedUser._id);
+    const index = this.all_user.findIndex(user => user._id === updatedUser.userId);
+    console.log(index);
     if (index !== -1) {
       this.all_user[index].name = updatedUser.name;
       this.all_user[index].email = updatedUser.email;
       this.all_user[index].password = updatedUser.password;
       this.all_user[index].student_id = updatedUser.student_id;
       this.all_user[index].userType = updatedUser.role;
+      console.log(this.all_user[index].name);
     }
   }
 

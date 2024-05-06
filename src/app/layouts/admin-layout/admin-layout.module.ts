@@ -15,6 +15,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdminViewComponent } from '../../admin-view/admin-view.component';
 import { QuizComponent } from '../../quiz/quiz.component';
 import { TutorQuizComponent } from '../../tutor-quiz/tutor-quiz.component';
+import { TutorQuizEditComponent } from '../../tutor-quiz-edit/tutor-quiz-edit.component';
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -33,7 +34,8 @@ import { TutorQuizComponent } from '../../tutor-quiz/tutor-quiz.component';
     ForumComponent,
     AdminViewComponent,
     QuizComponent,
-    TutorQuizComponent
+    TutorQuizComponent,
+    TutorQuizEditComponent
   ]
 })
 
