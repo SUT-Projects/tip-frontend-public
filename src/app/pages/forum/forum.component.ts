@@ -7,6 +7,8 @@ import forum_posts from './sample_forum_data.json';
   styleUrl: './forum.component.scss'
 })
 export class ForumComponent {
+
+
   posts: any = forum_posts;
   comments: any = [];
   open_create_post_interface: boolean = false;
