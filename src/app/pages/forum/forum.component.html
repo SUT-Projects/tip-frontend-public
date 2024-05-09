@@ -26,6 +26,8 @@
             </div>
           </div>  <!--Close card shadow-->
           <div class="card-footer mr-0 pl-lg-4">
+
+
             <form #commentForm="ngForm" (ngSubmit)="create_comment(commentForm, post)">
               <div class="form-row align-items-center">
                 <div class="col-11">
@@ -36,6 +38,8 @@
                 </div>
               </div>
             </form>
+
+
           </div> <!--Close card footer-->
       </div> <!--Close column-->
     </div> <!--Close ngIf-->
@@ -52,16 +56,16 @@
               <span class="heading">Create Post</span>
           </div> <!--card header-->
           <div class="card-body">
-            <form #postForm="ngForm" (ngSubmit)="create_post(postForm)">
+            <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
               <!--Title form group-->
               <div class="form-group">
                 <label for="title">Title</label>
-                <input class="form-control" type="textbox" name="title" ngModel required>
+                <input class="form-control" type="textbox" name="title" formControlName="title" required>
               </div> <!--close title-->
               <!--Content form group-->
               <div class="form-group">
                 <label for="content">Content </label>
-                <textarea class="form-control" type="textbox" name="content" ngModel required="required"></textarea><br>
+                <textarea class="form-control" type="textbox" name="content" formControlName="content" required="required"></textarea><br>
               </div><!--Close content-->
               <!--Media-->
                 <button class="btn btn-primary" type="submit">Confirm</button>

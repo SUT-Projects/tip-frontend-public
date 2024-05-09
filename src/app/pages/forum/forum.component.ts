@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import forum_posts from './sample_forum_data.json';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-forum',
@@ -8,13 +9,26 @@ import forum_posts from './sample_forum_data.json';
 })
 export class ForumComponent {
 
+  postForm: FormGroup;
+  commentForm: FormGroup;
+
 
   posts: any = forum_posts;
   comments: any = [];
   open_create_post_interface: boolean = false;
 
-  constructor () {
+  constructor (private formBuilder: FormBuilder) {
+    this.postForm = this.formBuilder.group({});
+    this.commentForm = this.formBuilder.group({});
+    this.posts.forEach(post => {
+      this.postForm.addControl("title", this.formBuilder.control("", Validators.required));
+      this.postForm.addControl("content", this.formBuilder.control("", Validators.required));
+    })
+    this.comments.forEach(comment => {
+      this.postForm.addControl("content", this.formBuilder.control(comment.content, Validators.required));
+    })
   }
+  
 
   ngOnInit() {
     this.posts.forEach(post => {
@@ -58,7 +72,8 @@ export class ForumComponent {
       created_at: this.formatDate(dateNow),
       likes: 0
     }
-    post.comments.push(newComment)
+    post.comments.push(newComment);
+    commentForm.setValue({content: ""});
   }
 
   create_post (postForm) {
@@ -88,33 +103,28 @@ export class ForumComponent {
     this.posts.push(newPost);
     console.log(this.posts);
 
-    this.open_create_post_interface = !this.open_create_post_interface;
-
-  }
-  /*create_post (postForm) {
     
-    const title = userForm.value.name;
-    const email = userForm.value.email;
-    const password = userForm.value.password;
-    const student_id = userForm.value.student_id;
-    const userType = userForm.value.role;
+  }
 
-    const newUser = {
-      user_type: userType,
-      name: name,
-      email: email,
-      password: password,
-      student_id: student_id
-    };
+  onSubmit() {
 
-    this.all_user.push(newUser);
-    this.all_user.forEach(user => {
-      user.showPassword = false;
-    });
+    
+    if (this.postForm.valid) {
+      // Form is valid, handle submission logic here
+      console.log(this.postForm.value);
+      console.log("FORM IS VALID.")
+      this.create_post(this.postForm);
+      this.open_create_post_interface = !this.open_create_post_interface;
+    } else {
+      alert("Form is invalid");
+      console.log("FORM IS INVALID!!!")
+    }
+    
+   
+    
 
-    console.log(this.all_user);
 
-    userForm.resetForm();
-  }*/
+    
+  }
 
 }
