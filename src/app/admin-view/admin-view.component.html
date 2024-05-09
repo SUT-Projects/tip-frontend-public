@@ -91,26 +91,26 @@
               <h1 class="text-center">{{ selectedUser? 'Update' : 'Create' }} User</h1>
             </div> <!--Close header-->
             <div class="card-body">
-              <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
-                <input type="hidden" name="userId" [ngModel]="selectedUser?._id"> <!--Store data-->
+              <form [formGroup]="userForm" (ngSubmit)="onSubmit()"> <div id="creation_interface" *ngIf="open_create_interface"></div>
+                <input type="hidden" name="_id" formControlName="_id">
                 <div class="form-row">
                   <div class="form-group col-4">
                     <fieldset class="form-group">
                       <legend class="col-form-label mb-3"><h2>Roles</h2></legend>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="admin" checked="selectedUser?.user_type === 'admin'" formControlName="role">
                         <label class="form-check-label" for="gridRadios1">
                           Admin
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="tutor" checked="selectedUser?.user_type === 'tutor'" formControlName="role">
                         <label class="form-check-label" for="gridRadios2">
                           Tutor
                         </label>
                       </div>
                       <div class="form-check">
-                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="student" checked="selectedUser?.user_type === 'student'" formControlName="role">
                         <label class="form-check-label" for="gridRadios3">
                           Student
                         </label>
@@ -123,28 +123,28 @@
                     <div class="form-group row">
                       <label for="name" class="col-2 col-form-label">Name</label>
                       <div class="col-10">
-                        <input class="form-control" type="text" name="name" [(ngModel)]="selectedUser && selectedUser.name" required>
+                        <input class="form-control" type="text" name="name" formControlName="name" required>
                       </div>
                     </div> <!--Close name-->
                     <!--Student ID-->
                     <div class="form-group row">
                       <label for="student_id" class="col-2 col-form-label">Student ID</label>
                       <div class="col-10">
-                        <input class="form-control" type="text" name="student_id" [(ngModel)]="selectedUser && selectedUser.student_id">
+                        <input class="form-control" type="text" name="student_id" formControlName="student_id">
                       </div>
                     </div> <!--Close student id-->
                     <!--Email-->
                     <div class="form-group row">
                       <label for="email" class="col-2 col-form-label">Email</label>
                       <div class="col-10">
-                        <input class="form-control" type="text" name="email" [(ngModel)]="selectedUser && selectedUser.email" required>
+                        <input class="form-control" type="text" name="email" formControlName="email">
                       </div>
                     </div> <!--Close Email-->
                     <!--Password-->
                     <div class="form-group row">
                       <label for="password" class="col-2 col-form-label">Email</label>
                       <div class="col-10">
-                        <input class="form-control" type="text" name="password" [(ngModel)]="selectedUser && selectedUser.password" required>
+                        <input class="form-control" type="text" name="password" formControlName="password">
                       </div>
                     </div> <!--Close Password-->
                   </div> <!--Close details-->
