@@ -8,10 +8,13 @@ declare interface RouteInfo {
     class: string;
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'ni-tv-2 text-primary', class: '' },
-    { path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '' },
-    { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '' },
-    { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '' }
+    { path: '/dashboard', title: 'Dashboard',  icon: 'ni-chart-pie-35 text-primary', class: '' },
+    //{ path: '/user-profile', title: 'User profile',  icon:'ni-single-02 text-yellow', class: '' },
+    { path: '/tables', title: 'Quizzes',  icon:'ni-bullet-list-67 text-red', class: '' },
+    { path: '/forum', title: 'Forum',  icon:'ni-satisfied text-yellow', class: '' },
+    { path: '/admin-view', title: 'Admin View',  icon:'ni-badge text-grey', class: '' },
+    { path: '/tutor-quiz', title: 'Show Quizzes',  icon:'ni-folder-17 text-purple', class: '' },
+    { path: '/login', title: 'Logout',  icon:'ni-key-25 text-info', class: '' }
 ];
 
 @Component({

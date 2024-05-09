@@ -12,6 +12,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
+import { QuizComponent } from './quiz/quiz.component';
+
+import { ResultComponent } from './tools/result/result.component';
+import { CreatePostComponent } from './tools/create-post/create-post.component';
+
+import { AdminViewComponent } from './admin-view/admin-view.component';
+import { TutorQuizComponent } from './tutor-quiz/tutor-quiz.component';
+import { TutorQuizEditComponent } from './tutor-quiz-edit/tutor-quiz-edit.component';
+
 
 
 @NgModule({
@@ -27,7 +36,11 @@ import { ComponentsModule } from './components/components.module';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+
+    ResultComponent,
+    CreatePostComponent
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <div class="col-xl-12">
+    <div class="card mt-4">
+      <div class="card-header">
+        <!--When it start, show instruction-->
+        <div id="intro" *ngIf="started == false">
+          <h1>Instruction</h1>
+        </div> <!--Close instruction-->
+        <!--When you pressed start-->
+        <div *ngIf="started == true">
+          <div *ngIf="question!=null; else showScore" class="question-box">
+            <h3>Question {{i+1}}/{{totalQuestions}}</h3>
+            <h3>{{question.question_text}}</h3>
+            <div class="timer">
+              {{minutes}} : {{seconds}}
+            </div>
+          </div> <!--Close question box-->
+        </div> <!--Close if when you press start-->
+        <div  *ngIf="quizEnd">
+          <div class="score text-center">
+            <h1>Result</h1>
+          </div>
+        </div>
+      </div> <!--Close card header-->
+      <!--Start card body-->  
+      <div class="card-body mb-0">
+        <div id="intro" *ngIf="started == false">
+          <p>You have 5 minutes to complete this quiz. Press 'Start' to begin.</p>
+        </div><!--Close instruction if-->
+        <!--Start-->
+        <div *ngIf="started == true">
+          <div *ngIf="question!=null; else showScore" class="question-box">
+            <div class="text-center mb-4">{{feedback}}</div>
+            <div (click)= onSelecting($event.target.value) *ngFor="let option of question.options">
+              <input 
+              [ngClass] = "{
+              'btn btn-outline-primary btn-lg btn-block mb-3': true,
+              'btn btn-success mt-5 mb-5': answer == question.correct_option && answer == option,
+              'btn btn-danger mt-5 mb-5': answer != question.correct_option && answer == option,
+              'btn btn-outline-light': answerGiven
+              }"
+              type="button"
+              name="options"
+              id="option1" 
+              value="{{option}}"
+              
+              [disabled]="answerGiven"
+              />
+            </div>
+          </div>
+          <ng-template #showScore>
+            <div class="score">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col text-center">
+                    <h3>Score</h3> 
+                    <div>{{score}} / {{questions.length}}</div>
+                  </div>
+                  <div class="col text-center">
+                    <h3>Time taken</h3>
+                    <div>{{endTime}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </div><!--Close quizz if-->
+      </div> <!--Close card body-->
+      <!--Card footer-->
+      <div class="card-footer">
+        <div *ngIf="started == false">
+          <a class="btn btn-primary d-flex justify-content-center" (click)="startQuiz()">Start</a>
+        </div>
+        <div *ngIf="started == true">
+          <div *ngIf="question!=null; else showScore" class="question-box">
+            <a class="btn btn-primary d-flex justify-content-center" (click)="onNext()">{{buttonName}}</a>
+          </div>
+        </div>
+        <div  *ngIf="quizEnd">
+          <div class="score">
+              <a class="btn btn-primary d-flex justify-content-center" [routerLink]="['/tables']" *ngIf="quizEnd == true">Finish</a>
+          </div>
+        </div>
+      </div>
+    </div> <!--Close card-->
+  </div> <!--Close col-->
+</div> <!--Close container-->

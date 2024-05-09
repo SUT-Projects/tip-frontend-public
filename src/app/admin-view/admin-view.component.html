@@ -1,0 +1,166 @@
+<div class="header bg-gradient-danger pb-2 pt-5 pt-md-8">
+    <div class="container-fluid">
+      <div class="header-header">
+       
+      </div>
+    </div>
+</div>
+  <!-- Page content -->
+  <div *ngIf="!open_create_interface" class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+      <div class="col">
+        <div class="card shadow">
+          <div class="card-header border-0">
+            <h3 class="mb-0">User Information</h3>
+          </div>
+          <div class="card-body">
+          <button type="button" class="btn btn-outline-primary" (click)="sortBy('name')">Sort by Name</button>
+          <button type="button" class="btn btn-outline-primary" (click)="sortBy('email')">Sort by Email</button>
+          <button type="button" class="btn btn-outline-primary" (click)="sortBy('user_type')">Sort by Role</button>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th scope="col">User Type</th>
+                  <th scope="col">Name</th>
+                  <!--<th scope="col">Status</th>
+                  <th scope="col">Users</th>-->
+                  <th scope="col">Email</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tbody>
+                  <tr *ngFor="let user of all_user">
+                    <th scope="row">
+                      <div class="media align-items-center">
+                        <div class="media-body">
+                          <span class="mb-0 text-sm">{{user.user_type}}</span>
+                        </div>
+                      </div>
+                    </th>
+                    <td>
+                        {{user.name}}
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <span class="mr-2">{{user.email}}</span>
+                     
+                      </div>
+                    </td>
+                    <td>
+                        <span *ngIf="user.showPassword == true">
+                        {{user.password}}
+                        <button type="button" class="btn btn-outline-primary btn-sm" id={{user._id}} (click)="toggle_pass(user)"><img id="hide" src="../../assets/img/icons/common/hide.png" width="15" style="text-align: bottom;"></button>
+                        </span>
+                        
+                        <span *ngIf="user.showPassword == false">
+                        &#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;&#x2022;
+                        <button type="button" class="btn btn-outline-primary btn-sm  " id={{user._id}} (click)="toggle_pass(user)"><img id="show" src="../../assets/img/icons/common/show.png" width="15" style="text-align: bottom;"></button>
+                        </span>
+                    </td>
+                      <td>
+                        <button type="button" class="btn btn-primary" (click)="edit_user(user)">Edit</button>
+                        <button type="button" class="btn btn-outline-primary" (click)="delete_user(user)">Delete</button>
+                      </td>
+                  </tr>
+  
+
+
+              </tbody>
+              
+            </table>
+             </div>
+             <br>
+             <button type="button" class="btn btn-primary" (click)="create_button()">Create</button>
+         
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="creation_interface" *ngIf="open_create_interface">  
+    <div class="container-fluid mt--7">
+      <div class="row">
+        <div class="col-xl-12 mt-4 mb-10 mb-xl-0">
+          <div class="card bg-secondary shadow">
+            <div class="card-header bg-white border-0">
+              <h1 class="text-center">{{ selectedUser? 'Update' : 'Create' }} User</h1>
+            </div> <!--Close header-->
+            <div class="card-body">
+              <form #userForm="ngForm" (ngSubmit)="submitForm(userForm)">
+                <input type="hidden" name="userId" [ngModel]="selectedUser?._id"> <!--Store data-->
+                <div class="form-row">
+                  <div class="form-group col-4">
+                    <fieldset class="form-group">
+                      <legend class="col-form-label mb-3"><h2>Roles</h2></legend>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                        <label class="form-check-label" for="gridRadios1">
+                          Admin
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                        <label class="form-check-label" for="gridRadios2">
+                          Tutor
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3">
+                        <label class="form-check-label" for="gridRadios3">
+                          Student
+                        </label>
+                      </div>
+                    </fieldset>
+                  </div> <!--Close roles-->
+                  <div class="form-group col-8">
+                    <h2 class="col-form-label mb-3">Details</h2>
+                    <!--Name-->
+                    <div class="form-group row">
+                      <label for="name" class="col-2 col-form-label">Name</label>
+                      <div class="col-10">
+                        <input class="form-control" type="text" name="name" [(ngModel)]="selectedUser && selectedUser.name" required>
+                      </div>
+                    </div> <!--Close name-->
+                    <!--Student ID-->
+                    <div class="form-group row">
+                      <label for="student_id" class="col-2 col-form-label">Student ID</label>
+                      <div class="col-10">
+                        <input class="form-control" type="text" name="student_id" [(ngModel)]="selectedUser && selectedUser.student_id">
+                      </div>
+                    </div> <!--Close student id-->
+                    <!--Email-->
+                    <div class="form-group row">
+                      <label for="email" class="col-2 col-form-label">Email</label>
+                      <div class="col-10">
+                        <input class="form-control" type="text" name="email" [(ngModel)]="selectedUser && selectedUser.email" required>
+                      </div>
+                    </div> <!--Close Email-->
+                    <!--Password-->
+                    <div class="form-group row">
+                      <label for="password" class="col-2 col-form-label">Email</label>
+                      <div class="col-10">
+                        <input class="form-control" type="text" name="password" [(ngModel)]="selectedUser && selectedUser.password" required>
+                      </div>
+                    </div> <!--Close Password-->
+                  </div> <!--Close details-->
+                </div> <!--Close form row-->
+                <div class="form-row">
+                  <button class="btn btn-primary btn-block" type="submit" *ngIf="selectedUser">Update User</button>
+                  <button class="btn btn-primary btn-block" type="submit" *ngIf="selectedUser == null">Create User</button>
+                </div>
+              </form>
+            </div> <!--Close card body-->
+            <!--Card footer-->
+            <div class="card-footer">
+              <button  class="btn btn-outline-primary btn-block" (click)="open_create_interface = !open_create_interface">Return</button>
+            </div> <!--CLose card footer-->
+          </div> <!--Close card shadow-->
+        </div> <!--Close col-->   
+      </div><!--Close row-->
+    </div> <!--Close container-->
+  </div> <!--Close if-->

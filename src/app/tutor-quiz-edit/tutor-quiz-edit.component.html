@@ -1,0 +1,45 @@
+<button *ngIf="readOnly" type="button" (click)="readOnly = !readOnly">Edit</button>
+
+<!--<button *ngIf="!readOnly" type="button" (click)="readOnly = !readOnly">Cancel</button>-->
+
+<form #quizForm="ngForm" (ngSubmit)="confirm_edit(quizForm)">
+    <button *ngIf="!readOnly" type="submit">Return</button>
+    <div *ngFor="let question of questions; let questionIndex = index">
+    
+        <!-- Question -->
+        <p *ngIf="readOnly && !question.last">{{questionIndex + 1}}. {{ question.question_text }}</p>
+        <label *ngIf="!readOnly || question.last">{{questionIndex + 1}}. </label>
+        <input *ngIf="!readOnly || question.last" type="text" name="question_{{ questionIndex }}" [(ngModel)]="question.question_text">
+        
+        <!-- 4 options -->
+        <div>
+            <p *ngIf="readOnly && !question.last">{{ getOptionLetter(0) }}. {{ question.options[0] }}</p>
+            <label *ngIf="!readOnly || question.last">{{ getOptionLetter(0) }}. </label>
+            <input *ngIf="!readOnly || question.last" type="text" name="question_{{ questionIndex }}_option_0" [(ngModel)]="question.options[0]">
+        </div>
+        <div>
+            <p *ngIf="readOnly && !question.last">{{ getOptionLetter(1) }}. {{ question.options[1] }}</p>
+            <label *ngIf="!readOnly || question.last">{{ getOptionLetter(1) }}. </label>
+            <input *ngIf="!readOnly || question.last" type="text" name="question_{{ questionIndex }}_option_1" [(ngModel)]="question.options[1]">
+        </div>
+        <div>
+            <p *ngIf="readOnly && !question.last">{{ getOptionLetter(2) }}. {{ question.options[2] }}</p>
+            <label *ngIf="!readOnly || question.last">{{ getOptionLetter(2) }}. </label>
+            <input *ngIf="!readOnly || question.last" type="text" name="question_{{ questionIndex }}_option_2" [(ngModel)]="question.options[2]">
+        </div>
+        <div>
+            <p *ngIf="readOnly && !question.last">{{ getOptionLetter(3) }}. {{ question.options[3] }}</p>
+            <label *ngIf="!readOnly || question.last">{{ getOptionLetter(3) }}. </label>
+            <input *ngIf="!readOnly || question.last" type="text" name="question_{{ questionIndex }}_option_3" [(ngModel)]="question.options[3]">
+       </div>
+       
+            <!-- correct option -->
+        <p *ngIf="readOnly && !question.last">Answer: {{ question.correct_option }}</p>
+        <label *ngIf="!readOnly || question.last">Answer: </label>
+        <input *ngIf="!readOnly || question.last" type="text" name="question_{{ questionIndex }}_correct_option" [(ngModel)]="question.correct_option">
+
+        <br>
+        
+    </div>
+    <button *ngIf="readOnly" type="button" (click)="create_question()">Add</button>
+</form>
