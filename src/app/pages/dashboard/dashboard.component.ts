@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
+
   loadStatData() {
     if (this.quizDb == 'questions_1_dashboard') {
       this.stats = stat_questions_1; // should be stat
