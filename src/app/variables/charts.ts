@@ -193,7 +193,7 @@ export function chartOptions() {
             borderCapStyle: 'rounded'
           },
           rectangle: {
-            backgroundColor: colors.theme['warning']
+            backgroundColor: colors.theme['primary']
           },
           arc: {
             backgroundColor: colors.theme['primary'],
@@ -295,7 +295,8 @@ export const chartExample1 = {
         ticks: {
           callback: function(value) {
             if (!(value % 10)) {
-              return '$' + value + 'k';
+              //return '$' + value + 'k';
+              return value;
             }
           }
         }
@@ -303,13 +304,14 @@ export const chartExample1 = {
     }
   },
   data: {
-    labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    labels: ["0% - 20%", "21% - 40%", "41% - 60%", "61% - 80%", "81% - 100%"],
     datasets: [{
-      label: 'Performance',
-      data: [0, 20, 10, 30, 15, 40, 20, 60, 60]
+      label: 'Number of students',
+      data: [11, 20, 10, 30, 15]
     }]
   }
 }
+
 
 export const chartExample2 = {
   options: {
@@ -343,7 +345,7 @@ export const chartExample2 = {
     }
   },
   data: {
-    labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: ["0-20", "21-40", "41-60", "61-80", "80-100"],
     datasets: [
       {
         label: "Sales",

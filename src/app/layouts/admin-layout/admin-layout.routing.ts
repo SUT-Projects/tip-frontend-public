@@ -17,5 +17,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tables/:quizId',         component: QuizComponent },
     { path: 'admin-view',       component: AdminViewComponent},
     { path: 'tutor-quiz',       component: TutorQuizComponent},
-    { path: 'tutor-quiz/:quizId',         component: TutorQuizEditComponent }
+    { path: 'tutor-quiz/:quizId',         component: TutorQuizEditComponent },
+    { path: 'tutor-quiz/tutor-dashboard/:quizDb',         component: DashboardComponent }
 ];

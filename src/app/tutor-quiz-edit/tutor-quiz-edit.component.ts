@@ -17,7 +17,7 @@ export class TutorQuizEditComponent {
     this.editForm = this.formBuilder.group({});
   }
 
-  oneCorrectOptionValidator(): ValidatorFn {
+  /*oneCorrectOptionValidator(): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const options = ['option_0', 'option_1', 'option_2', 'option_3'];
       const correctOption = control.get('correct_option')?.value;
@@ -34,7 +34,7 @@ export class TutorQuizEditComponent {
       // Otherwise, return an error indicating validation failure
       return correctCount === 1 ? null : { invalidCorrectOption: true };
     };
-  }
+  }*/
   
   
   //questions: any = questions_1; ///////

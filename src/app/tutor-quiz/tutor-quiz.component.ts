@@ -17,4 +17,8 @@ export class TutorQuizComponent {
   editQuiz(quizId: string) {
     this.router.navigate(['/tutor-quiz', quizId]);
   }
+
+  quizDashboard(quizDb: string) {
+    this.router.navigate(['/tutor-quiz/tutor-dashboard', quizDb]);
+  }
 }
