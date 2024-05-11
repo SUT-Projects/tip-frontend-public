@@ -66,7 +66,7 @@ export class ForumComponent {
 
     const newComment = {
       author: {
-        name: "Me" // this should be the current user's name... - STEVEN
+        name: localStorage.getItem('userName') // this should be the current user's name... - STEVEN
       },
       content: content,
       created_at: this.formatDate(dateNow),
@@ -83,7 +83,7 @@ export class ForumComponent {
     const content = postForm.value.content;
     const created_at = this.formatDate(dateNow);
     // const user = current user logged on
-    const author_name = "Me";
+    const author_name = localStorage.getItem('userName');
 
     const newPost = {
       title: title,

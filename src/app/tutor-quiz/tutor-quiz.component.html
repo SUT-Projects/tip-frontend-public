@@ -30,25 +30,20 @@
               </thead>
               <tbody>
                 <tbody>
-                  <tr>
+                  <tr *ngFor="let quiz of all_quizzes">
                     <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="mb-0 text-sm">Quiz 1: Mathematics</span>
+                          <span class="mb-0 text-sm">{{ quiz.quizTitle }}</span>
                         </div>
                       </div>
                     </th>
                     <td>
-                      11 April 2024
+                      {{ quiz.quizDue }}
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
-                        <span class="mr-2">9 April 2024</span>
-                        <!--<div>
-                          <div class="progress">
-                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
-                          </div>
-                        </div>-->
+                        <span class="mr-2">{{ quiz.quizCreated }}</span>
                       </div>
                     </td>
                     <td>
@@ -62,48 +57,42 @@
                             <a class="dropdown-item">Start Quiz</a>
                             <button type="button" class="dropdown-item"  data-toggle="modal" data-target="#staticBackdrop">View Result</button>
                           </div>-->
-                          <button (click)="editQuiz('questions_2')">View</button>
+                          <button (click)="editQuiz(quiz.quizId)">View</button>
                           <button (click)="quizDashboard('questions_2_dashboard')">Stats</button>
-                        </div>
-                      </td>
-                  </tr>
-  
-                  <tr>
-                    <th scope="row">
-                      <div class="media align-items-center">
-                        <div class="media-body">
-                          <span class="mb-0 text-sm">Quiz 2: General Knowledge</span>
-                        </div>
-                      </div>
-                    </th>
-                    <td>
-                      23 April 2024
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center">
-                        <span class="mr-2">4 April 2024</span>
-            
-                      </div>
-                    </td>
-                    <td>
-                      12/33
-                      <td class="text-right">
-                        <div><!--<div ngbDropdown placement="bottom-right">
-                          <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
-                            <i class="fas fa-ellipsis-v"></i>
-                          </a>
-                          <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                            <a class="dropdown-item">Start Quiz</a>
-                            <button type="button" class="dropdown-item"  data-toggle="modal" data-target="#staticBackdrop">View Result</button>
-                          </div>-->
-                          <button (click)="editQuiz('questions_1')">View</button>
-                          <button (click)="quizDashboard('questions_1_dashboard')">Stats</button>
+                          <button *ngIf="!quiz.release" (click)="releaseQuiz(quiz)">Release</button>
                         </div>
                       </td>
                   </tr>
               </tbody>
               
             </table>
+
+
+<!--Create quiz interface-->
+
+    <!--Forum post-->
+ 
+          <div class="card-header bg-white border-0">
+            <span class="heading">Create Quiz</span>
+        </div> <!--card header-->
+        <div class="card-body">
+          <form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
+            <!--Title form group-->
+            <div class="form-group">
+              <label for="title">Title</label>
+              <input class="form-control" type="textbox" name="title" formControlName="title" required>
+            </div> <!--close title-->
+            <!--Title form group-->
+            <div class="form-group">
+              <label for="dueDate">Set due date</label>
+              <input class="form-control" type="textbox" name="dueDate" formControlName="dueDate" required>
+            </div> <!--close title-->
+            <!--Content form group-->
+            <!--Media-->
+              <button class="btn btn-primary" type="submit">Confirm</button>
+          </form><!--Close form-->
+        </div> <!--Close card body-->
+     
           </div>
          
         </div>
@@ -138,14 +127,4 @@
       </div>
     </div>
   </div>
-
-
-
-
-
-
-
-
-
-
 

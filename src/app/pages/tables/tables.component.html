@@ -29,16 +29,18 @@
             </thead>
             <tbody>
               <tbody>
-                <tr>
+
+             
+                <tr *ngFor="let quiz of all_quizzes">
                   <th scope="row">
                     <div class="media align-items-center">
                       <div class="media-body">
-                        <span class="mb-0 text-sm">Quiz 1: Mathematics</span>
+                        <span class="mb-0 text-sm">{{ quiz.quizTitle }}</span>
                       </div>
                     </div>
                   </th>
                   <td>
-                    11 April 2024
+                    {{ quiz.quizDue }}
                   </td>
                   <td>
                     <div class="d-flex align-items-center">
@@ -58,44 +60,16 @@
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" (click)="startQuiz('questions_2')">Start Quiz</a>
+                          <a class="dropdown-item" (click)="startQuiz(quiz.quizId)">Start Quiz</a>
                           <button type="button" class="dropdown-item"  data-toggle="modal" data-target="#staticBackdrop">View Result</button>
                         </div>
                       </div>
                     </td>
                 </tr>
+               
 
-                <tr>
-                  <th scope="row">
-                    <div class="media align-items-center">
-                      <div class="media-body">
-                        <span class="mb-0 text-sm">Quiz 2: General Knowledge</span>
-                      </div>
-                    </div>
-                  </th>
-                  <td>
-                    23 April 2024
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">60%</span>
-          
-                    </div>
-                  </td>
-                  <td>
-                    1/3
-                    <td class="text-right">
-                      <div ngbDropdown placement="bottom-right">
-                        <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
-                          <i class="fas fa-ellipsis-v"></i>
-                        </a>
-                        <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" (click)="startQuiz('questions_1')">Start Quiz</a>
-                          <button type="button" class="dropdown-item"  data-toggle="modal" data-target="#staticBackdrop">View Result</button>
-                        </div>
-                      </div>
-                    </td>
-                </tr>
+
+
             </tbody> 
           </table>
         </div>
@@ -108,7 +82,7 @@
   <div class="modal-dialog modal-dialog-scrollables">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Quizz Result</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Quiz Result</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

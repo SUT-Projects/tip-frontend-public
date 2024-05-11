@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import questions_1 from "./questions_1.json";
 import questions_2 from "./questions_2.json";
+import all_quizzes from "./all_quizzes.json";
 import { ActivatedRoute } from '@angular/router';
 import { QuizService } from '../quiz.service';
 
@@ -28,12 +29,13 @@ export class QuizComponent {
   totalQuestions: any;
 
   loadQuizData() {
-    if (this.quizId == 'questions_1') {
-      this.questions = questions_1;
-    } 
-    if (this.quizId == 'questions_2') {
-      this.questions = questions_2;
+    var i: number = 0;
+    for(i = 0; i < all_quizzes.length; i++){
+      if (this.quizId == all_quizzes[i].quizId) {
+        this.questions = all_quizzes[i].questions;
+      } 
     }
+    console.log(this.questions);
     this.question = this.questions[this.i];
     this.totalQuestions = this.questions.length;
   }
