@@ -6,7 +6,7 @@
 <div class="container-fluid">
     <!--Forum post-->
     <div *ngIf="!open_create_post_interface"> 
-      <div class="col-xl-12 mt-4" *ngFor="let post of posts">
+      <div class="col-xl-12 mt-4" *ngFor="let post of posts.slice().reverse()">
         <div class="card bg-secondary shadow">
           <div class="card-header bg-white border-0">
               <span class="description font-weight-bold">{{ post.title }}</span><br>
