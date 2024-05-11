@@ -59,18 +59,10 @@
                           </div>-->
 
                           <div class="bth-group" role="group">
-                            <button class="btn btn-primary" (click)="editQuiz('questions_2')">View</button>
+                            <button class="btn btn-primary" (click)="editQuiz(quiz.quizId)">View</button>
                             <button class="btn btn-outline-primary" (click)="quizDashboard('questions_2_dashboard')">Stats</button>
+                            <button class="btn btn-outline-primary" *ngIf="!quiz.release" (click)="releaseQuiz(quiz)">Release</button>
                           </div>
-                        </div>
-                      </td>
-                  </tr>
-  
-                  
-                          <button (click)="editQuiz(quiz.quizId)">View</button>
-                          <button (click)="quizDashboard('questions_2_dashboard')">Stats</button>
-                          <button *ngIf="!quiz.release" (click)="releaseQuiz(quiz)">Release</button>
-
                         </div>
                       </td>
                   </tr>
@@ -138,4 +130,6 @@
       </div>
     </div>
   </div>
+
+
 
