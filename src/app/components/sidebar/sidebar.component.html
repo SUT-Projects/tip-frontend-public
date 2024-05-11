@@ -6,8 +6,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <h1>Welcome back, {{ userName }}!</h1>
-
+<h4>Welcome {{ userName }}!</h4>
  <!-- Brand -->
     <a class="navbar-brand pt-0" *ngIf="userRoles == 'admin'" routerLinkActive="active" [routerLink]="['/admin-view']">
       <img src="./assets/img/brand/red.png" class="navbar-brand-img" alt="...">
@@ -18,6 +17,7 @@
     <a class="navbar-brand pt-0" *ngIf="userRoles == 'student'" routerLinkActive="active" [routerLink]="['/tables']">
       <img src="./assets/img/brand/red.png" class="navbar-brand-img" alt="...">
     </a>
+   
     <!-- Collapse -->
     <div class="collapse navbar-collapse"  [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
       <!-- Collapse header -->
