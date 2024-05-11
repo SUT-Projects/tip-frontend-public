@@ -1,12 +1,5 @@
-<div class="header bg-gradient-danger pb-2 pt-5 pt-md-8">
-    <div class="container-fluid">
-      <div class="header-header">
-       
-      </div>
-    </div>
-</div>
   <!-- Page content -->
-  <div *ngIf="!open_create_interface" class="container-fluid mt--7">
+  <div *ngIf="!open_create_interface" class="container-fluid mt-xl-5 mt-sm-5">
     <!-- Table -->
     <div class="row">
       <div class="col">
@@ -27,9 +20,9 @@
                   <th scope="col">Name</th>
                   <!--<th scope="col">Status</th>
                   <th scope="col">Users</th>-->
-                  <th scope="col">Email</th>
-                  <th scope="col">Password</th>
                   <th scope="col">Action</th>
+                  <th scope="col">Password</th>
+                  <th scope="col">Email</th>
                 </tr>
               </thead>
               <tbody>
@@ -44,6 +37,10 @@
                     </th>
                     <td>
                         {{user.name}}
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-primary" (click)="edit_user(user)">Edit</button>
+                      <button type="button" class="btn btn-outline-primary" (click)="delete_user(user)">Delete</button>
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
@@ -62,16 +59,8 @@
                         <button type="button" class="btn btn-outline-primary btn-sm  " id={{user._id}} (click)="toggle_pass(user)"><img id="show" src="../../assets/img/icons/common/show.png" width="15" style="text-align: bottom;"></button>
                         </span>
                     </td>
-                      <td>
-                        <button type="button" class="btn btn-primary" (click)="edit_user(user)">Edit</button>
-                        <button type="button" class="btn btn-outline-primary" (click)="delete_user(user)">Delete</button>
-                      </td>
                   </tr>
-  
-
-
               </tbody>
-              
             </table>
              </div>
              <br>
@@ -83,9 +72,9 @@
   </div>
 
   <div id="creation_interface" *ngIf="open_create_interface">  
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt-xl-2 mt-sm-3">
       <div class="row">
-        <div class="col-xl-12 mt-4 mb-10 mb-xl-0">
+        <div class="col-xl-12 mt-xl-2 mt-sm-3 mb-10 mb-xl-0">
           <div class="card bg-secondary shadow">
             <div class="card-header bg-white border-0">
               <h1 class="text-center">{{ selectedUser? 'Update' : 'Create' }} User</h1>
@@ -94,7 +83,7 @@
               <form [formGroup]="userForm" (ngSubmit)="onSubmit()"> <div id="creation_interface" *ngIf="open_create_interface"></div>
                 <input type="hidden" name="_id" formControlName="_id">
                 <div class="form-row">
-                  <div class="form-group col-4">
+                  <div class="form-group col-xl-4 col-md-12">
                     <fieldset class="form-group">
                       <legend class="col-form-label mb-3"><h2>Roles</h2></legend>
                       <div class="form-check">
@@ -117,33 +106,33 @@
                       </div>
                     </fieldset>
                   </div> <!--Close roles-->
-                  <div class="form-group col-8">
+                  <div class="form-group col-xl-8 col-md-12">
                     <h2 class="col-form-label mb-3">Details</h2>
                     <!--Name-->
                     <div class="form-group row">
-                      <label for="name" class="col-2 col-form-label">Name</label>
-                      <div class="col-10">
+                      <label for="name" class="col-xl-2 col-md-12 col-form-label">Name</label>
+                      <div class="col-xl-10 col-md-12">
                         <input class="form-control" type="text" name="name" formControlName="name" required>
                       </div>
                     </div> <!--Close name-->
                     <!--Student ID-->
                     <div class="form-group row">
-                      <label for="student_id" class="col-2 col-form-label">Student ID</label>
-                      <div class="col-10">
+                      <label for="student_id" class="col-xl-2 col-md-12 col-form-label">Student ID</label>
+                      <div class="col-xl-10 col-md-12">
                         <input class="form-control" type="text" name="student_id" formControlName="student_id">
                       </div>
                     </div> <!--Close student id-->
                     <!--Email-->
                     <div class="form-group row">
-                      <label for="email" class="col-2 col-form-label">Email</label>
-                      <div class="col-10">
+                      <label for="email" class="col-xl-2 col-md-12 col-form-label">Email</label>
+                      <div class="col-xl-10 col-md-12">
                         <input class="form-control" type="text" name="email" formControlName="email">
                       </div>
                     </div> <!--Close Email-->
                     <!--Password-->
                     <div class="form-group row">
-                      <label for="password" class="col-2 col-form-label">Email</label>
-                      <div class="col-10">
+                      <label for="password" class="col-xl-2 col-md-12 col-form-label">Password</label>
+                      <div class="col-xl-10 col-md-12">
                         <input class="form-control" type="text" name="password" formControlName="password">
                       </div>
                     </div> <!--Close Password-->
