@@ -8,6 +8,7 @@ import { ForumComponent } from '../../pages/forum/forum.component';
 import { AdminViewComponent } from '../../admin-view/admin-view.component';
 import { TutorQuizComponent } from '../../tutor-quiz/tutor-quiz.component';
 import { TutorQuizEditComponent } from '../../tutor-quiz-edit/tutor-quiz-edit.component';
+import { StudentDashboardComponent } from '../../student-dashboard/student-dashboard.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
@@ -18,5 +19,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'admin-view',       component: AdminViewComponent},
     { path: 'tutor-quiz',       component: TutorQuizComponent},
     { path: 'tutor-quiz/:quizId',         component: TutorQuizEditComponent },
-    { path: 'tutor-quiz/tutor-dashboard/:quizDb',         component: DashboardComponent }
+    { path: 'tutor-quiz/tutor-dashboard/:quizDb',         component: DashboardComponent },
+    { path: 'tables/student-dashboard/:quizDb',         component: StudentDashboardComponent }
 ];

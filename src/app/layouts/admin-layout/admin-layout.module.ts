@@ -18,6 +18,8 @@ import { AdminViewComponent } from '../../admin-view/admin-view.component';
 import { QuizComponent } from '../../quiz/quiz.component';
 import { TutorQuizComponent } from '../../tutor-quiz/tutor-quiz.component';
 import { TutorQuizEditComponent } from '../../tutor-quiz-edit/tutor-quiz-edit.component';
+import { StudentDashboardComponent } from '../../student-dashboard/student-dashboard.component';
+
 // import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
@@ -38,7 +40,8 @@ import { TutorQuizEditComponent } from '../../tutor-quiz-edit/tutor-quiz-edit.co
     AdminViewComponent,
     QuizComponent,
     TutorQuizComponent,
-    TutorQuizEditComponent
+    TutorQuizEditComponent,
+    StudentDashboardComponent
   ]
 })
 
