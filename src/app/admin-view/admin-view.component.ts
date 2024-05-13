@@ -84,7 +84,11 @@ export class AdminViewComponent {
     //userForm.resetForm();
   }
 
-
+  delete_prompt(user) {
+    if(confirm("Are you sure to delete " + user.name + "?")){
+      this.delete_user(user);
+    };
+  }
   
   delete_user (user) {
     const index = this.all_user.indexOf(user);

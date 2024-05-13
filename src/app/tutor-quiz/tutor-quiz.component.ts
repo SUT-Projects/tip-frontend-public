@@ -99,4 +99,6 @@ export class TutorQuizComponent {
 
     
   }
+
+  openCreate = false;
 }

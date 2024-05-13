@@ -7,7 +7,7 @@
 </div>
   <!-- Page content -->
 
-  <div class="container-fluid mt--7">
+  <div *ngIf="!openCreate" class="container-fluid mt--7">
     <!-- Table -->
     <div class="row">
       <div class="col">
@@ -69,65 +69,46 @@
               </tbody>
               
             </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
+<div class="col-xl-12 mt-4 mb-10 mb-xl-0 sticky-top">
+  <button class="btn btn-primary btn-block" data-toggle="modal" data-target="#staticBackdrop" (click)="openCreate = !openCreate" *ngIf="!openCreate">Create new quiz</button>
+</div> <!--close create post div-->
 
-<!--Create quiz interface-->
-
-    <!--Forum post-->
- 
+<div *ngIf="openCreate" id="create_post_interface">  
+  <div class="container-fluid">
+    <div class="row">
+<!--Forum post-->
+      <div class="col-xl-12 mt-4 mb-10 mb-xl-0">
+        <div class="card bg-secondary shadow">
           <div class="card-header bg-white border-0">
             <span class="heading">Create Quiz</span>
-        </div> <!--card header-->
+          </div> <!--card header-->
         <div class="card-body">
           <form [formGroup]="quizForm" (ngSubmit)="onSubmit()">
-            <!--Title form group-->
+<!--Title form group-->
             <div class="form-group">
               <label for="title">Title</label>
               <input class="form-control" type="textbox" name="title" formControlName="title" required>
             </div> <!--close title-->
-            <!--Title form group-->
+<!--Title form group-->
             <div class="form-group">
               <label for="dueDate">Set due date</label>
               <input class="form-control" type="textbox" name="dueDate" formControlName="dueDate" required>
             </div> <!--close title-->
-            <!--Content form group-->
-            <!--Media-->
-              <button class="btn btn-primary" type="submit">Confirm</button>
+<!--Content form group-->
+<!--Media-->
+            <button class="btn btn-primary" type="submit">Confirm</button>
+            <button class="btn btn-primary" (click)="openCreate = !openCreate" type="bottom">Return</button>
           </form><!--Close form-->
         </div> <!--Close card body-->
-     
-          </div>
-         
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollables">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Quizz Result</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="d-flex justify-content-center">
-            <div class="progress blue">
-              <span class="progress-left">
-              <span class="progress-bar"></span>
-            </span>
-                    <span class="progress-right">
-                        <span class="progress-bar"></span>
-                    </span>
-                    <div class="progress-value">90%</div>
-                </div>
-              </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+      </div><!--Close card background-->
+     </div><!--Close column--> 
+    </div><!--Close row-->
+  </div> <!--Close container-->
+</div><!--Close ngIf-->
 

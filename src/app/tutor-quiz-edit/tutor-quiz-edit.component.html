@@ -1,4 +1,7 @@
 <div class="col-xl-12 mt-4 mb-10 mb-xl-0 sticky-top">
+    <button class="btn btn-primary btn-block" type="button" routerLinkActive="active" [routerLink]="['/tutor-quiz']">Return</button>
+</div>
+<div class="col-xl-12 mt-4 mb-10 mb-xl-0 sticky-top">
     <button class="btn btn-primary btn-block" *ngIf="readOnly" type="button" (click)="readOnly = !readOnly">Edit</button>
 </div>
 
@@ -64,7 +67,7 @@
 </form> <!--End form-->
     
 <!--Edit question form-->
-<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+<form *ngIf="readOnly" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="container-fluid">
         <div class="row">
             <!--First col-->
