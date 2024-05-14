@@ -18,11 +18,9 @@
                 <tr>
                   <th scope="col">User Type</th>
                   <th scope="col">Name</th>
-                  <!--<th scope="col">Status</th>
-                  <th scope="col">Users</th>-->
                   <th scope="col">Action</th>
-                  <th scope="col">Password</th>
                   <th scope="col">Email</th>
+                  <th scope="col">Password</th>
                 </tr>
               </thead>
               <tbody>
@@ -81,7 +79,7 @@
             </div> <!--Close header-->
             <div class="card-body">
               <form [formGroup]="userForm" (ngSubmit)="onSubmit()"> <div id="creation_interface" *ngIf="open_create_interface"></div>
-                <input type="hidden" name="_id" formControlName="_id">
+                <!--<input type="hidden" name="_id" formControlName="_id">-->
                 <div class="form-row">
                   <div class="form-group col-xl-4 col-md-12">
                     <fieldset class="form-group">
@@ -115,13 +113,6 @@
                         <input class="form-control" type="text" name="name" formControlName="name" required>
                       </div>
                     </div> <!--Close name-->
-                    <!--Student ID-->
-                    <div class="form-group row">
-                      <label for="student_id" class="col-xl-2 col-md-12 col-form-label">Student ID</label>
-                      <div class="col-xl-10 col-md-12">
-                        <input class="form-control" type="text" name="student_id" formControlName="student_id">
-                      </div>
-                    </div> <!--Close student id-->
                     <!--Email-->
                     <div class="form-group row">
                       <label for="email" class="col-xl-2 col-md-12 col-form-label">Email</label>

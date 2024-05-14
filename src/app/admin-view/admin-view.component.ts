@@ -1,57 +1,90 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import user_list from './sample_user_data.json';
 import { isEmpty } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { UserManagementService } from '../user-management.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',
   styleUrl: './admin-view.component.scss'
 })
-export class AdminViewComponent {
+export class AdminViewComponent implements OnInit {
 
   userForm: FormGroup;
-
-  all_user: any = user_list;
+  all_user: any = [];
   selectedUser: any = {};
+  open_create_interface: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  getUsers () {
+    this.userManagementService.getUsers().subscribe(
+      (response) => {
+        this.all_user = response;
+        console.log(this.all_user);
+        console.log(response);
+      
+        this.all_user.forEach(user => {
+          if (user.user_type == 0) {
+            user.user_type = "admin";
+          }
+          if (user.user_type == 1) {
+            user.user_type = "tutor";
+          }
+          if (user.user_type == 2) {
+            user.user_type = "student";
+          }
+         })
+  
+        console.log(this.all_user);
+        this.router.navigate([this.router.url]);
+      }
+    );
+
+    
+  }
+
+  ngOnInit(): void {
+    
+  }
+
+  constructor(private formBuilder: FormBuilder, private router:Router, private userManagementService: UserManagementService) {
     this.all_user.forEach(user => {
       user.showPassword = false;
     });
-
     this.userForm = this.formBuilder.group({
-      //name: ['', Validators.required],
-      //email: [''],
-      //password: [''],
-      //student_id: ['']
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      role: ['', Validators.required]
     });
-
-    this.all_user.forEach(user => {
-      this.userForm.addControl("role", this.formBuilder.control(user.user_type));
-      this.userForm.addControl("_id", this.formBuilder.control(user._id));
-      this.userForm.addControl("name", this.formBuilder.control(user.name, Validators.required));
-      this.userForm.addControl("student_id", this.formBuilder.control(user.student_id));
-      this.userForm.addControl("email", this.formBuilder.control(user.email, Validators.required));
-      this.userForm.addControl("password", this.formBuilder.control(user.password, Validators.required));
-    });
-  }
+    this.getUsers();
+    
+      
+    
+   }
   
 
   toggle_pass (user) {
     user.showPassword = !user.showPassword;
   }
 
-  open_create_interface: boolean = false;
+  
   create_button () {
+    this.selectedUser = null;
+    this.userForm.reset();
     console.log(this.all_user[this.all_user.length-1])
-    var new_id: any = "user" + (parseInt(this.all_user[this.all_user.length - 1]._id[4]) + 1);
-    console.log(new_id);
-    this.userForm.setValue({role: "", _id: new_id, name: "", student_id: "", email: "", password: ""});
+    //var new_id: any = "user" + (parseInt(this.all_user[this.all_user.length - 1]._id[4]) + 1);
+    //console.log(new_id);
+    console.log(this.userForm.controls);
+    
+    //this.userForm.setValue({role: "", name: "", email: "", password: ""});
     
     this.open_create_interface = !this.open_create_interface;
+    
+    console.log("AAA");
     this.selectedUser = null; 
+    console.log("BBB");
   }
 
 
@@ -64,17 +97,39 @@ export class AdminViewComponent {
     const password = userForm.value.password;
     const student_id = userForm.value.student_id;
     const userType = userForm.value.role;
+    const created_date = userForm.value.created_date;
+    var userTypeInt = 100;
+    if (userType == 'admin') {
+      var userTypeInt = 2;
+    }
+    if (userType == 'tutor') {
+      var userTypeInt = 1;
+    }
+    if (userType == 'student') {
+      var userTypeInt = 0;
+    }
 
     const newUser = {
-      _id: _id,
-      user_type: userType,
+      //_id: _id,
+      userType: userTypeInt,
       name: name,
       email: email,
       password: password,
-      student_id: student_id
+      department: "not_assigned"
+      //student_id: student_id
     };
 
-    this.all_user.push(newUser);
+    //this.all_user.push(newUser);
+
+    this.userManagementService.createUser(newUser).subscribe(
+      (response) => {
+        console.log(response);
+        this.getUsers();
+      }
+    )
+
+    
+
     this.all_user.forEach(user => {
       user.showPassword = false;
     });
@@ -91,20 +146,26 @@ export class AdminViewComponent {
   }
   
   delete_user (user) {
-    const index = this.all_user.indexOf(user);
+    /*const index = this.all_user.indexOf(user);
 
     if(index !== -1) {
       this.all_user.splice(index,1);
-    }
+    }*/
+
+    this.userManagementService.deleteUser(user._id).subscribe(
+      (response) => {
+        this.getUsers();
+      }
+    )
   }
 
 
   edit_user (user) {
     this.open_create_interface = !this.open_create_interface
     this.selectedUser = user;
-    this.userForm.setValue({role: user.user_type, _id: user._id, name: user.name, student_id: user.student_id, email: user.email, password: user.password});
     console.log(this.selectedUser);
-    
+    this.userForm.setValue({role: user.user_type, name: user.name, email: user.email, password: user.password});
+    console.log(this.selectedUser);
   }
 
   cancel_change () {
@@ -112,8 +173,9 @@ export class AdminViewComponent {
     this.open_create_interface = !this.open_create_interface;
   }
 
-  update_user(updatedUser) {
-    const index = this.all_user.findIndex(user => user._id === updatedUser._id);
+  update_user(User) {
+    console.log();
+    /*const index = this.all_user.findIndex(user => user._id === updatedUser._id);
     console.log(index);
     if (index !== -1) {
       this.all_user[index]._id = updatedUser._id;
@@ -123,7 +185,35 @@ export class AdminViewComponent {
       this.all_user[index].student_id = updatedUser.student_id;
       this.all_user[index].user_type = updatedUser.role;
       console.log(this.all_user[index].name);
+    }*/
+    const userType = this.userForm.value.role;
+    var userTypeInt = 100;
+    if (userType == 'admin') {
+      var userTypeInt = 2;
     }
+    if (userType == 'tutor') {
+      var userTypeInt = 1;
+    }
+    if (userType == 'student') {
+      var userTypeInt = 0;
+    }
+    const thisUser = {
+      _id: User._id,
+      created_date: User.created_date,
+      userType: userTypeInt,
+      name: this.userForm.value.name,
+      email: this.userForm.value.email,
+      password: this.userForm.value.password,
+      //department: "not_assigned"
+      //student_id: student_id
+    };
+    this.userManagementService.updateUser(thisUser).subscribe(
+      (response) => {
+        console.log(thisUser);
+        console.log(response);
+        this.getUsers();
+      }
+    )
   }
 
   sortBy(prop: string) {
@@ -141,7 +231,7 @@ export class AdminViewComponent {
 
     if (this.selectedUser != null) {
       console.log(this.userForm.value)
-      this.update_user(this.userForm.value);
+      this.update_user(this.selectedUser);
       this.open_create_interface = !this.open_create_interface;
     } else {
       if (this.userForm.valid) {
