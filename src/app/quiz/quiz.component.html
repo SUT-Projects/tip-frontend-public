@@ -10,7 +10,7 @@
         <div *ngIf="started == true">
           <div *ngIf="question!=null; else showScore" class="question-box">
             <h3>Question {{i+1}}/{{totalQuestions}}</h3>
-            <h3>{{question.question_text}}</h3>
+            <h3>{{question.question}}</h3>
             <div class="timer">
               {{minutes}} : {{seconds}}
             </div>
@@ -35,8 +35,8 @@
               <input 
               [ngClass] = "{
               'btn btn-outline-primary btn-lg btn-block mb-3': true,
-              'btn btn-success mt-5 mb-5': answer == question.correct_option && answer == option,
-              'btn btn-danger mt-5 mb-5': answer != question.correct_option && answer == option,
+              'btn btn-success mt-5 mb-5': answer == question.options[question.correct_option] && answer == option,
+              'btn btn-danger mt-5 mb-5': answer != question.options[question.correct_option] && answer == option,
               'btn btn-outline-light': answerGiven
               }"
               type="button"

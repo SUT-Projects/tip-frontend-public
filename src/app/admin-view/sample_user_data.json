@@ -5,7 +5,7 @@
     "password": "12345678",
     "name": "Steven Chin",
     "student_id": "NA"
-  },
+  }, 
   {
     "_id": "user2",
     "user_type": "tutor",

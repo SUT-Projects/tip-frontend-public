@@ -27,17 +27,25 @@ export class QuizComponent {
   questions: any;
   question: any;
   totalQuestions: any;
+  allQuizzes: any;
 
   loadQuizData() {
-    var i: number = 0;
-    for(i = 0; i < all_quizzes.length; i++){
-      if (this.quizId == all_quizzes[i].quizId) {
-        this.questions = all_quizzes[i].questions;
-      } 
-    }
+    this.quizService.getQuizzes().subscribe(
+      (response) => {
+        this.allQuizzes = response;
+        var i: number = 0;
+        for(i = 0; i < this.allQuizzes.length; i++){
+        if (this.quizId == this.allQuizzes[i]._id) { // quizId ---> _id
+          this.questions = this.allQuizzes[i].questions_list;
+        } 
+        }
     console.log(this.questions);
     this.question = this.questions[this.i];
     this.totalQuestions = this.questions.length;
+        console.log(this.allQuizzes);
+        console.log(response);
+      }
+    );
   }
 
   ngOnInit() {
@@ -46,10 +54,6 @@ export class QuizComponent {
       this.quizId = params['quizId'];
       this.loadQuizData();
     })
-
-    console.log(this.started);
-    console.log(this.questions[0]);
-    console.log(this.question);
 
     // console.log("Seconds : ", this.seconds);
     this.minutes = "0" + this.minutes;
@@ -73,10 +77,10 @@ answerGiven: boolean = false;
   onSelecting(value) {
     console.log(value);
     this.answer = value;
-    if (this.answer === this.question.correct_option) {
+    if (this.answer === this.question.options[this.question.correct_option]) {
     this.feedback = "That's correct!";
   } else {
-    this.feedback = "Nice try! The correct answer is " + this.question.correct_option + "."
+    this.feedback = "Nice try! The correct answer is " + this.question.options[this.question.correct_option] + "."
   }
   this.answerGiven = true;
 }
@@ -85,7 +89,7 @@ answerGiven: boolean = false;
 buttonName: string = "Next Question";
 quizEnd: boolean = false;
   onNext() {
-    if (this.answer === this.question.correct_option) {
+    if (this.answer === this.question.options[this.question.correct_option]) {
       ++this.score;
     }
     console.log("Score : ", this.score);
@@ -122,6 +126,5 @@ quizEnd: boolean = false;
   date: any = new Date();
   minutes: any = 0;
   seconds: any = 0;
-  
   endTime: any = 0;
 }
