@@ -50,7 +50,36 @@ export class TutorQuizComponent {
   }
 
   releaseQuiz(quiz) {
-    quiz.release = true;
+    if(confirm("Are you sure to release the quiz? (Action is irreversible.)")){
+      const currentQuiz = this.allQuizzes.find(q => q._id === quiz._id);
+      console.log(currentQuiz);
+      const updatedQuiz = {
+        ...currentQuiz,
+        quiz_status: 1,
+        updated_date: new Date().toISOString()
+      }
+
+      this.quizService.updateQuiz(updatedQuiz).subscribe(
+        (response) => {
+          console.log(updatedQuiz);
+          console.log(response);
+          this.loadQuizData();
+          //this.router.navigate([this.router.url]);
+        });
+    }
+  }
+
+  deleteQuiz(quiz) {
+    if(confirm("Are you sure to delete " + quiz.title + "?")){
+      
+      this.quizService.deleteQuiz(quiz._id).subscribe(
+        (response) => {
+          console.log(quiz._id);
+          console.log(response);
+          this.loadQuizData();
+          //this.router.navigate([this.router.url]);
+        });
+    }
   }
 
 
@@ -62,10 +91,16 @@ export class TutorQuizComponent {
     return `${day}/${month}/${year}`;
   }
 
+  parseDate (dateString) {
+    const [day, month, year] = dateString.split('/').map(Number);
+    const parsedDate = new Date(year, month - 1, day);
+    return parsedDate;
+  }
+
   create_quiz (quizForm) {
     const title: any = quizForm.value.title;
     const dueDate: any = quizForm.value.dueDate;
-    
+    console.log(dueDate);
     const newQuiz = {
       title: title,
       description: "",
@@ -76,9 +111,11 @@ export class TutorQuizComponent {
       created_by_user_name: localStorage.getItem("userName"),
       quiz_status: 0,
       questions_list: [],
-      last_attempt_date: dueDate
+      created_date: new Date(), // useless, defined in API
+      last_attempt_date: this.parseDate(dueDate) // STEVEN: ask gur
     };
-
+    console.log(newQuiz.created_date);
+    console.log(newQuiz.last_attempt_date);
     this.quizService.createQuiz(newQuiz).subscribe(
       (response) => {
         console.log(response);

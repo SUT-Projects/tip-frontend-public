@@ -17,6 +17,7 @@
                         <div class="card bg-secondary shadow">
                             <div class="card-header bg-white border-0">
                                 <span class="font-weight-bold" *ngIf="readOnly">Question {{questionIndex + 1}}: {{ question.get('question').value }}</span><br>
+                                <button type="button" class="btn btn-warning" *ngIf="!readOnly" (click)="removeQuestion(questionIndex)">X</button>
                                 <label class="font-weight-bold" *ngIf="!readOnly"> Question {{questionIndex + 1}} </label>
                                 <input class="form-control" *ngIf="!readOnly" type="text" formControlName="question">
                             </div> <!--card header-->

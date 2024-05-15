@@ -24,7 +24,7 @@
                   <!--<th scope="col">Status</th>
                   <th scope="col">Users</th>-->
                   <th scope="col">Create date</th>
-                  <th scope="col">Students Attempted</th>
+                  <th scope="col">Number of questions</th>
                   <th scope="col"></th>
                 </tr>
               </thead>
@@ -43,11 +43,11 @@
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
-                        <span class="mr-2">{{ quiz.quiz_open_date }}</span>
+                        <span class="mr-2">{{ quiz.created_date }}</span>
                       </div>
                     </td>
                     <td>
-                        23/33
+                        {{ quiz.questions_list.length }}
                       <td class="text-right">
                         <div><!--<div ngbDropdown placement="bottom-right">
                           <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
@@ -61,7 +61,9 @@
                           <div class="bth-group" role="group">
                             <button class="btn btn-primary" (click)="editQuiz(quiz._id)">View</button>
                             <button class="btn btn-outline-primary" (click)="quizDashboard('questions_2_dashboard')">Stats</button>
-                            <button class="btn btn-outline-primary" *ngIf="quiz.status == 0" (click)="releaseQuiz(quiz)">Release</button>
+                            <button class="btn btn-outline-primary" *ngIf="quiz.quiz_status == 0" (click)="releaseQuiz(quiz)">Release</button>
+                            <button class="btn btn-dark" *ngIf="quiz.quiz_status == 1" aria-disabled="true" disabled>Released</button>
+                            <button class="btn btn-outline-danger" (click)="deleteQuiz(quiz)">Delete</button>
                           </div>
                         </div>
                       </td>

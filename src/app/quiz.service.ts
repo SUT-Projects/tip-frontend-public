@@ -14,7 +14,7 @@ export class QuizService {
   }
 
   createQuiz(details: {title, description, total_questions, passing_marks,
-                        total_marks, questions_list, created_by_user_id, created_by_user_name}): Observable<any> {
+                        total_marks, questions_list, created_by_user_id, created_by_user_name, last_attempt_date, created_date}): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/create-quiz`, details);
   }
 
@@ -22,33 +22,8 @@ export class QuizService {
     return this.http.post<any>(`${this.apiUrl}/update-quiz`, details);
   }
 
-  constructor(private http: HttpClient) { }
-}
-
-
-
-
-
-export class UserManagementService {
-
-  private apiUrl = "http://127.0.0.1:5000";
-
-  getUsers(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/get-all-users`);
-  }
-
-  createUser(details: {userType, email, name, password}): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/create-user`, details);
-  }
-
-  updateUser(details: {_id, userType, email, name, password, created_date}): Observable<any> {
-    //const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    //const options = { headers: headers };
-    return this.http.post<any>(`${this.apiUrl}/update-user`, details);
-  }
-
-  deleteUser(_id): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/delete-user?user_id=${_id}`, _id);
+  deleteQuiz(_id): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/delete-quiz?quiz_id=${_id}`, _id);
   }
 
   constructor(private http: HttpClient) { }

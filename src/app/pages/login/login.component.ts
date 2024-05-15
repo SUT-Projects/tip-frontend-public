@@ -21,6 +21,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    //STEVEN//if (sessionStorage checked box is checked) {
+      //prefill this.loginForm.value.email = localStorage.getItem("userEmail");
+      //prefill this.loginForm.value.email = localStorage.getItem("userEmail");
+    //}
   }
   ngOnDestroy() {
   }
@@ -57,7 +61,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               localStorage.setItem('userType', 'student');
             }
             localStorage.setItem('userName', response.user.name);
-            localStorage.setItem('userId', response.user._id)
+            localStorage.setItem('userId', response.user._id);
+            localStorage.setItem('userPassword', response.user.password);
           } else {
             alert('Invalid username or password. Please try again.');
           }
@@ -108,4 +113,5 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   this.router.navigate([route]);
   }
+
 }

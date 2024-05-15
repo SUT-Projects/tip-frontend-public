@@ -198,6 +198,26 @@ export class TutorQuizEditComponent {
     this.toggleReadOnly();
   }
 
+  removeQuestion(questionIndex) {
+    if(confirm("Are you sure to remove this question?")) {
+      const quizToUpdate = this.allQuizzes.find(q => q._id === this.quizId);  
+      const updatedQuestionsArray = [...quizToUpdate.questions_list];
+        updatedQuestionsArray.splice(questionIndex, 1);
+        const updatedQuiz = {
+        ...this.allQuizzes.find(q => q._id === this.quizId),
+        questions_list: updatedQuestionsArray,
+        updated_date: new Date().toISOString(),
+        total_questions: this.editsForm.value.questions_array.length - 1
+      };
+      console.log(updatedQuiz);
+      // Call your service method to update the quiz here
+      this.quizService.updateQuiz(updatedQuiz).subscribe((response) => {
+        console.log("Is there response?", response);
+        this.loadQuizData();
+      });
+    }
+  }
+
   toggleReadOnly() {
     this.readOnly = !this.readOnly;
     //console.log((this.questions_array.controls[0]));
