@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import all_quizzes from '../quiz/all_quizzes.json';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { QuizService } from '../quiz.service';
 
 @Component({
   selector: 'app-tutor-quiz',
@@ -13,16 +12,33 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class TutorQuizComponent {
   dateNow: any = new Date();
   quizForm: FormGroup;
-  all_quizzes: any = all_quizzes;
-  constructor(private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder) { 
+  constructor(private router: Router, private modalService: NgbModal, private formBuilder: FormBuilder, private quizService: QuizService) { 
     this.quizForm = this.formBuilder.group({});
-    this.all_quizzes.forEach(quiz => {
-      this.quizForm.addControl("title", this.formBuilder.control("", Validators.required));
-      this.quizForm.addControl("dueDate", this.formBuilder.control(this.formatDate(this.dateNow), Validators.required));
-    })
+    this.quizForm.addControl("title", this.formBuilder.control("", Validators.required));
+    this.quizForm.addControl("dueDate", this.formBuilder.control(this.formatDate(this.dateNow), Validators.required));
+    
   }
 
+  questions: any;
+  question: any;
+  totalQuestions: any;
+  allQuizzes: any;
+  quizId: string;
+
+  loadQuizData() {
+    this.quizService.getQuizzes().subscribe(
+      (response) => {
+        this.allQuizzes = response;
+        console.log(this.allQuizzes);
+        console.log(response);
+      }
+    );
+  }
+
+
+
   ngOnInit() {
+    this.loadQuizData();
   }
   
   editQuiz(quizId: string) {
@@ -47,37 +63,33 @@ export class TutorQuizComponent {
   }
 
   create_quiz (quizForm) {
-    const dateNow: any = new Date();
-
     const title: any = quizForm.value.title;
     const dueDate: any = quizForm.value.dueDate;
-    const created_at: any = this.formatDate(dateNow);
-    const author_name: any = localStorage.getItem('userName');
-
+    
     const newQuiz = {
-      quizTitle: title,
-      quizId: "quiz_" + (all_quizzes.length + 1),
-      quizDue: dueDate,
-      quizCreated: created_at,
-      author: author_name,
-      release: false,
-      questions: [{
-        _id: "q_1",
-        question_text: "[question?]",
-        options: 
-          ["[opt1]","[opt2]","[opt3]","[opt4]"]
-        ,
-        correct_option: "[correct ans]",
-        point:  1
-      }]
+      title: title,
+      description: "",
+      total_questions: 0,
+      passing_marks: 0,
+      total_marks: 0,
+      created_by_user_id: localStorage.getItem("userId"),
+      created_by_user_name: localStorage.getItem("userName"),
+      quiz_status: 0,
+      questions_list: [],
+      last_attempt_date: dueDate
     };
 
-    this.all_quizzes.push(newQuiz);
-    console.log(this.all_quizzes);
+    this.quizService.createQuiz(newQuiz).subscribe(
+      (response) => {
+        console.log(response);
+        this.loadQuizData();
+      }
+    )
 
     
   }
 
+  openCreate = false;
   
   onSubmit() {
 
@@ -92,13 +104,8 @@ export class TutorQuizComponent {
       alert("Form is invalid");
       console.log("FORM IS INVALID!!!")
     }
-    
-   
-    
-
-
-    
+    this.openCreate = !this.openCreate;
   }
 
-  openCreate = false;
+  
 }

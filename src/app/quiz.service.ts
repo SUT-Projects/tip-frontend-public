@@ -13,6 +13,15 @@ export class QuizService {
     return this.http.get<any>(`${this.apiUrl}/get-all-quizzes`);
   }
 
+  createQuiz(details: {title, description, total_questions, passing_marks,
+                        total_marks, questions_list, created_by_user_id, created_by_user_name}): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/create-quiz`, details);
+  }
+
+  updateQuiz(details: {_id, total_questions, passing_mark, total_mark, questions_list, updated_date}): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/update-quiz`, details);
+  }
+
   constructor(private http: HttpClient) { }
 }
 

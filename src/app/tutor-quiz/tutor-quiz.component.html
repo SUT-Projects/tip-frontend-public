@@ -30,20 +30,20 @@
               </thead>
               <tbody>
                 <tbody>
-                  <tr *ngFor="let quiz of all_quizzes">
+                  <tr *ngFor="let quiz of allQuizzes">
                     <th scope="row">
                       <div class="media align-items-center">
                         <div class="media-body">
-                          <span class="mb-0 text-sm">{{ quiz.quizTitle }}</span>
+                          <span class="mb-0 text-sm">{{ quiz.title }}</span>
                         </div>
                       </div>
                     </th>
                     <td>
-                      {{ quiz.quizDue }}
+                      {{ quiz.last_attempt_date }}
                     </td>
                     <td>
                       <div class="d-flex align-items-center">
-                        <span class="mr-2">{{ quiz.quizCreated }}</span>
+                        <span class="mr-2">{{ quiz.quiz_open_date }}</span>
                       </div>
                     </td>
                     <td>
@@ -59,9 +59,9 @@
                           </div>-->
 
                           <div class="bth-group" role="group">
-                            <button class="btn btn-primary" (click)="editQuiz(quiz.quizId)">View</button>
+                            <button class="btn btn-primary" (click)="editQuiz(quiz._id)">View</button>
                             <button class="btn btn-outline-primary" (click)="quizDashboard('questions_2_dashboard')">Stats</button>
-                            <button class="btn btn-outline-primary" *ngIf="!quiz.release" (click)="releaseQuiz(quiz)">Release</button>
+                            <button class="btn btn-outline-primary" *ngIf="quiz.status == 0" (click)="releaseQuiz(quiz)">Release</button>
                           </div>
                         </div>
                       </td>

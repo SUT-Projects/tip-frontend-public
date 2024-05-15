@@ -56,7 +56,8 @@ export class LoginComponent implements OnInit, OnDestroy {
             if (response.user.user_type == 0) {
               localStorage.setItem('userType', 'student');
             }
-            localStorage.setItem('userName', response.user.name)
+            localStorage.setItem('userName', response.user.name);
+            localStorage.setItem('userId', response.user._id)
           } else {
             alert('Invalid username or password. Please try again.');
           }
