@@ -115,11 +115,24 @@ quizEnd: boolean = false;
     
     if (this.i == this.questions.length) {
       this.quizEnd = true;
+      this.attempts = (this.attempts + 1);
+      this.perc_score = Math.ceil((this.score/this.questions.length)*100);
+      this.progress = "100%";
     }
 
     console.log(this.quizEnd);
+
+    // Store temp attempts, perc_score and progress
+    
+    
+    sessionStorage.setItem("attempts", (this.attempts).toString());
+    sessionStorage.setItem("perc_score", this.perc_score.toString());
+    sessionStorage.setItem("progress", this.progress);
   }
 
+  attempts = 0;
+  perc_score = 0;
+  progress = "";
   
   
 

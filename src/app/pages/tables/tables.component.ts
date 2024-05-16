@@ -35,6 +35,10 @@ export class TablesComponent implements OnInit {
 
   ngOnInit() {
     this.loadQuizData();
+    sessionStorage.setItem("progress", "0%");
+    sessionStorage.setItem("perc_score", "N/A");
+    sessionStorage.setItem("attempts", "0");
+
     }
   
   startQuiz(quizId: string) {
@@ -44,6 +48,10 @@ export class TablesComponent implements OnInit {
   quizDashboard(quizDb: string) {
     this.router.navigate(['/tables/student-dashboard', quizDb]);
   }
+  
+  progress = sessionStorage.getItem("progress");
+  perc_score = sessionStorage.getItem("perc_score");
+  attempts = sessionStorage.getItem("attempts");
 
 }
 

@@ -6,7 +6,6 @@
   </div>
 </div>
 <!-- Page content -->
-<div class="container-fluid mt--7">
   <!-- Table -->
   <div class="row">
     <div class="col">
@@ -19,7 +18,7 @@
             <thead class="thead-light">
               <tr>
                 <th scope="col">Quiz Name</th>
-                <th scope="col">Due Date</th>
+                <!--<th scope="col">Due Date</th>-->
                 <!--<th scope="col">Status</th>
                 <th scope="col">Users</th>-->
                 <th scope="col">Completion</th>
@@ -31,7 +30,7 @@
               <tbody>
 
              
-                <tr *ngFor="let quiz of allQuizzes">
+                <tr *ngFor="let quiz of allQuizzes; let quizIndex = index">
                   <th scope="row">
                     <div class="media align-items-center">
                       <div class="media-body">
@@ -39,12 +38,12 @@
                       </div>
                     </div>
                   </th>
-                  <td>
+                  <!--<td>
                     {{ quiz.last_attempt_date }}
-                  </td>
+                  </td>-->
                   <td>
                     <div class="d-flex align-items-center">
-                      <span class="mr-2">0%</span>
+                      <span class="mr-2">{{ quizIndex === 0 ? progress : '0%' }}</span>
                       <!--<div>
                         <div class="progress">
                           <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
@@ -53,7 +52,7 @@
                     </div>
                   </td>
                   <td>
-                    0/3
+                    {{ quizIndex === 0 ? attempts+'/3' : '0/3' }}
                     <td class="text-right">
                       <div ngbDropdown placement="bottom-right">
                         <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
@@ -65,19 +64,10 @@
                         </div>
                       </div>
                     </td>
-                </tr>
-               
 
 
 
-            </tbody> 
-          </table>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal -->
+                    <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollables">
     <div class="modal-content">
@@ -89,19 +79,24 @@
       </div>
       <div class="modal-body">
         <div class="d-flex justify-content-center">
-          <div class="progress blue">
-            <span class="progress-left">
-            <span class="progress-bar"></span>
-          </span>
-                  <span class="progress-right">
-                      <span class="progress-bar"></span>
-                  </span>
-                  <div class="progress-value">90%</div>
-              </div>
-            </div>
+          <div class="progress-value">{{ quizIndex === 0 ? perc_score+'%' : 'Please take the test' }}</div>
+        </div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
+                </tr>
+               
+
+
+
+            </tbody> 
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+

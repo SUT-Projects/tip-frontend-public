@@ -35,9 +35,10 @@
               <input 
               [ngClass] = "{
               'btn btn-outline-primary btn-lg btn-block mb-3': true,
+              'btn btn-outline-light': answerGiven,
               'btn btn-success mt-5 mb-5': answer == question.options[question.correct_option] && answer == option,
-              'btn btn-danger mt-5 mb-5': answer != question.options[question.correct_option] && answer == option,
-              'btn btn-outline-light': answerGiven
+              'btn btn-danger mt-5 mb-5': answer != question.options[question.correct_option] && answer == option
+              
               }"
               type="button"
               name="options"
@@ -64,7 +65,7 @@
                 <div class="row mt-5">
                   <div class="col text-center">
                     <h3>Rank</h3>
-                    <div>Rank description</div>
+                    <div>You ranked <span class="fw-bold">1st</span> among <span class="fw-bold">3</span> classmates. Well done!</div>
                   </div>
                 </div>
               </div>
