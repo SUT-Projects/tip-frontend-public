@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import all_quizzes from '../../quiz/all_quizzes.json';
-//import { ResultComponent } from 'src/app/tools/result/result.component';
+import { QuizService } from '../../quiz.service';
 
 @Component({
   selector: 'app-tables',
@@ -11,11 +10,32 @@ import all_quizzes from '../../quiz/all_quizzes.json';
 })
 export class TablesComponent implements OnInit {
 
-  all_quizzes = all_quizzes.filter(quiz => quiz.release === true);
-  constructor(private router: Router, private modalService: NgbModal) { }
+  questions: any;
+  question: any;
+  totalQuestions: any;
+  allQuizzes: any;
+  quizId: string;
+
+  loadQuizData() {
+    this.quizService.getQuizzes().subscribe(
+      (response) => {
+        this.allQuizzes = response;
+        /*var i: number = 0;
+        for(i = 0; i < this.allQuizzes.length; i++){
+          this.quizId[i] = this.allQuizzes[i]._id;
+        }*/
+        this.allQuizzes = this.allQuizzes.filter(quiz => quiz.quiz_status === 1);
+        console.log(this.allQuizzes);
+        console.log(response);
+      }
+    );
+  }
+
+  constructor(private router: Router, private modalService: NgbModal, private quizService: QuizService) { }
 
   ngOnInit() {
-  }
+    this.loadQuizData();
+    }
   
   startQuiz(quizId: string) {
     this.router.navigate(['/tables', quizId]);

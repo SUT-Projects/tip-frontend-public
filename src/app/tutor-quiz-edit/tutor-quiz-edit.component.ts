@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import questions_1 from "../quiz/questions_1.json";
-import questions_2 from "../quiz/questions_2.json";
-import all_quizzes from "../quiz/all_quizzes.json";
+import { QuizService } from '../quiz.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tutor-quiz-edit',
@@ -14,56 +13,92 @@ import { AbstractControl, ValidatorFn } from '@angular/forms';
 export class TutorQuizEditComponent {
   quizId: string;
   editForm: FormGroup;
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder) {
-    this.editForm = this.formBuilder.group({});
-  }
+  editsForm: FormGroup;
+  questions_array: FormArray;
+  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private quizService:QuizService, private router: Router) {
+    this.editForm = this.formBuilder.group({
+      question_text: ['', Validators.required],
+      option_0: ['', Validators.required],
+      option_1: ['', Validators.required],
+      option_2: ['', Validators.required],
+      option_3: ['', Validators.required],
+      correct_option: ['', Validators.required],
+      points: [0],
+      question_id: ''
+    });
 
-  /*oneCorrectOptionValidator(): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } | null => {
-      const options = ['option_0', 'option_1', 'option_2', 'option_3'];
-      const correctOption = control.get('correct_option')?.value;
-      let correctCount = 0;
+    this.editsForm = this.formBuilder.group({
+      questions_array: this.formBuilder.array([
+      ])
+    });
+
+    /**this.editsForm = this.formBuilder.group({
+      questions_array: this.formBuilder.array([
+        this.formBuilder.group({
+          question: '',
+          options:
+            this.formBuilder.array([
+              this.formBuilder.control(''),
+              this.formBuilder.control(''),
+              this.formBuilder.control(''),
+              this.formBuilder.control('')
+            ]),
+            correct_option:''
+          })
+          ])
+        }) */
+
+    this.questions_array = this.editsForm.get('questions_array') as FormArray;
+  }
   
-      // Count the number of correct options
-      options.forEach(option => {
-        if (control.get(option)?.value === correctOption) {
-          correctCount++;
-        }
-      });
-  
-      // If exactly one option is marked as correct, return null (valid)
-      // Otherwise, return an error indicating validation failure
-      return correctCount === 1 ? null : { invalidCorrectOption: true };
-    };
-  }*/
-  
-  
-  //questions: any = questions_1; ///////
-  //questions: any = questions_2;
+  i: number = 0;
   questions: any;
+  question: any;
   totalQuestions: any;
-  all_quizzes = all_quizzes;
+  allQuizzes: any;
+
+  
 
   loadQuizData() {
-    var i: number = 0;
-    for(i = 0; i < all_quizzes.length; i++){
-      if (this.quizId == all_quizzes[i].quizId) {
-        this.questions = all_quizzes[i].questions;
-      } 
-    }
-    this.totalQuestions = this.questions.length;
+    this.quizService.getQuizzes().subscribe(
+      (response) => {
+        this.allQuizzes = response;
+        var i: number = 0;
+        for(i = 0; i < this.allQuizzes.length; i++){
+        if (this.quizId == this.allQuizzes[i]._id) { // quizId ---> _id
+          this.questions = this.allQuizzes[i].questions_list;
+        } 
+        }
+        console.log(this.questions);
+        this.question = this.questions[this.i];
+        this.totalQuestions = this.questions.length;
+        console.log(this.allQuizzes);
+        console.log(response);
+        /*this.questions.forEach(question => {
+          this.editForm.addControl("question_text", this.formBuilder.control("", Validators.required));
+          this.editForm.addControl("option_0", this.formBuilder.control("", Validators.required));
+          this.editForm.addControl("option_1", this.formBuilder.control("", Validators.required));
+          this.editForm.addControl("option_2", this.formBuilder.control("", Validators.required));
+          this.editForm.addControl("option_3", this.formBuilder.control("", Validators.required));
+          this.editForm.addControl("correct_option", this.formBuilder.control("", Validators.required));
+        });*/
+        console.log("TEST");
 
-    this.questions.forEach(question => {
-      this.editForm.addControl("question_text", this.formBuilder.control("", Validators.required));
-      this.editForm.addControl("option_0", this.formBuilder.control("", Validators.required));
-      this.editForm.addControl("option_1", this.formBuilder.control("", Validators.required));
-      this.editForm.addControl("option_2", this.formBuilder.control("", Validators.required));
-      this.editForm.addControl("option_3", this.formBuilder.control("", Validators.required));
-      this.editForm.addControl("correct_option", this.formBuilder.control("", Validators.required));
+        while (this.questions_array.length) {
+          this.questions_array.removeAt(0);}
 
-});
+        const quiz = this.allQuizzes.find(q => q._id === this.quizId);
+        if (quiz) {
+          quiz.questions_list.forEach(question => {
+          this.addQuestion(question);
+        });
+      }
+      }
+    )
   }
 
+
+  
   ngOnInit() {
     
     this.route.params.subscribe(params => {
@@ -83,45 +118,154 @@ export class TutorQuizEditComponent {
 
   readOnly: boolean = true;
 
-  confirm_edit(quizForm) {
-    console.log(quizForm.value.question_1);
-
-
-    //for (var i=0; i < this.questions.length; i++) {
-     // this.questions[i].question_text = quizForm.questions[i].value.question_text;
-    //}
-      
-    
-
-    this.readOnly = !this.readOnly;
+  createQuestionGroup(question): FormGroup {
+    return this.formBuilder.group({
+      question: [question.question, Validators.required],
+      options: this.formBuilder.array(
+        question.options.map(option => this.formBuilder.control(option, Validators.required))
+      ),
+      correct_option: [question.options[question.correct_option], Validators.required],
+      points: 1,
+      question_id: ''
+    });
   }
 
-  confirmEdit(): void {
-    // Save changes
+  addQuestion(question = { question: '', options: ['', '', '', ''], correct_option: '', points: 0, question_id: ''}) {
+    this.questions_array.push(this.createQuestionGroup(question));
+  }
+
+  updateCorrectOptionsIndex() {
+    for (let i = 0; i < this.questions_array.length; i++) {
+      const questionGroup = this.questions_array.at(i) as FormGroup;
+      const optionsArray = questionGroup.get('options') as FormArray;
+      const correctOptionValue = questionGroup.get('correct_option')?.value;
+
+      const correctOptionIndex = optionsArray.controls.findIndex(option => option.value === correctOptionValue);
+
+      if (correctOptionIndex !== -1) {
+        questionGroup.get('correct_option')?.setValue(correctOptionIndex);
+      } else {
+        console.error(`Correct option value '${correctOptionValue}' not found in options array for question ${i + 1}`);
+      }
+      console.log(this.questions_array);
+    }
+  }
+
+  confirmEdit() {
+    console.log("I was here");
+    console.log(this.editsForm);
+    
+    /*
+    var i;
+    for(i=0;i < this.questions_array.length - 1; i++) {
+      var correct_index;
+      if (this.editsForm.value.questions_array[i].correct_option == this.editsForm.value.questions_array[i].option_0) {
+        this.editsForm.value.questions_array[i].correct_option = 0;
+        this.questions_array.at(i).get('correct_option')?.setValue(0);
+        correct_index = 0;
+      }
+      if (this.editsForm.value.questions_array[i].correct_option == this.editsForm.value.questions_array[i].option_1) {
+        this.editsForm.value.questions_array[i].correct_option = 1;
+        correct_index = 1;
+      }
+      if (this.editsForm.value.questions_array[i].correct_option == this.editsForm.value.questions_array[i].option_2) {
+        this.editsForm.value.questions_array[i].correct_option = 2;
+        correct_index = 2;
+      }
+      if (this.editsForm.value.questions_array[i].correct_option == this.editsForm.value.questions_array[i].option_3) {
+        this.editsForm.value.questions_array[i].correct_option = 3;
+        correct_index = 2;
+     }
+    }*/
+
+    this.updateCorrectOptionsIndex();
+
+    if (this.editsForm.valid) {
+      const updatedQuiz = {
+        ...this.allQuizzes.find(q => q._id === this.quizId),
+        questions_list: this.editsForm.value.questions_array,
+        updated_date: new Date().toISOString(),
+        total_questions: this.editsForm.value.questions_array.length
+      };
+      console.log(updatedQuiz);
+      // Call your service method to update the quiz here
+      this.quizService.updateQuiz(updatedQuiz).subscribe((response) => {
+        console.log("Is there response?", response);
+        this.loadQuizData();
+      });
+    }
+    console.log("I was here2");
+    this.toggleReadOnly();
+  }
+
+  removeQuestion(questionIndex) {
+    if(confirm("Are you sure to remove this question?")) {
+      const quizToUpdate = this.allQuizzes.find(q => q._id === this.quizId);  
+      const updatedQuestionsArray = [...quizToUpdate.questions_list];
+        updatedQuestionsArray.splice(questionIndex, 1);
+        const updatedQuiz = {
+        ...this.allQuizzes.find(q => q._id === this.quizId),
+        questions_list: updatedQuestionsArray,
+        updated_date: new Date().toISOString(),
+        total_questions: this.editsForm.value.questions_array.length - 1
+      };
+      console.log(updatedQuiz);
+      // Call your service method to update the quiz here
+      this.quizService.updateQuiz(updatedQuiz).subscribe((response) => {
+        console.log("Is there response?", response);
+        this.loadQuizData();
+      });
+    }
+  }
+
+  toggleReadOnly() {
+    this.readOnly = !this.readOnly;
+    //console.log((this.questions_array.controls[0]));
   }
 
   create_question(editForm) {
-    this.questions[this.questions.length - 1].last = false;
+    const currentQuiz = this.allQuizzes.find(q => q._id === this.quizId);
+    var correct_index;
+    if (this.editForm.value.correct_option == this.editForm.value.option_0) {
+      correct_index = 0;
+    }
+    if (this.editForm.value.correct_option == this.editForm.value.option_1) {
+      correct_index = 1;
+    }
+    if (this.editForm.value.correct_option == this.editForm.value.option_2) {
+      correct_index = 2;
+    }
+    if (this.editForm.value.correct_option == this.editForm.value.option_3) {
+      correct_index = 3;
+    }
     const newQuestion = {
-      _id: "q_" + this.questions.length,
-      question_text: this.editForm.value.question_text,
+      question: this.editForm.value.question_text,
       options: 
         [this.editForm.value.option_0,
           this.editForm.value.option_1,
           this.editForm.value.option_2,
           this.editForm.value.option_3]
       ,
-      correct_option: this.editForm.value.correct_option,
-      last: true
+      correct_option: correct_index,
+      points: 5,
+      question_id: "no idea" 
     };
-    console.log(newQuestion);
-    
-    this.questions.push(newQuestion);
-    
+    const updatedQuiz = {
+      ...currentQuiz,
+      total_questions: currentQuiz.questions_list.length + 1,
+      questions_list: [...currentQuiz.questions_list, newQuestion],
+      updated_date: new Date().toISOString()
+    }
 
-    console.log(this.questions);
-
-    editForm.reset();
+    this.quizService.updateQuiz(updatedQuiz).subscribe(
+      (response) => {
+        console.log(updatedQuiz);
+        console.log(response);
+        this.loadQuizData();
+        //this.router.navigate([this.router.url]);
+      });
+    
+      editForm.reset();
 
   }
 
@@ -154,5 +298,4 @@ export class TutorQuizEditComponent {
         return true;
       }
   }
-
 }

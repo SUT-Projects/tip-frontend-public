@@ -1,78 +1,67 @@
 <div class="col-xl-12 mt-4 mb-10 mb-xl-0 sticky-top">
-    <button class="btn btn-primary btn-block" *ngIf="readOnly" type="button" (click)="readOnly = !readOnly">Edit</button>
+    <button class="btn btn-primary btn-block" type="button" routerLinkActive="active" [routerLink]="['/tutor-quiz']">Return to Main</button>
 </div>
 
-<!--<button *ngIf="!readOnly" type="button" (click)="readOnly = !readOnly">Cancel</button>-->
+<div class="col-xl-12 mt-4 mb-10 mb-xl-0 sticky-top">
+    <button class="btn btn-primary btn-block" type="button" (click)="toggleReadOnly()">{{ readOnly ? 'Edit' : 'Back' }}</button>
+</div>
+
 <!--View question form-->
-<form #quizForm="ngForm" (ngSubmit)="confirm_edit(quizForm)">
-    <div *ngFor="let question of questions; let questionIndex = index">
-        <div class="container-fluid">
-            <div class="row">
-                <!--First col-->
-                <div class="col-xl-12 mt-4 mb-10 mb-xl-0">
-                    <div class="card bg-secondary shadow">
-                        <div class="card-header bg-white border-0">
-                            <span class="font-weight-bold" *ngIf="readOnly">Question {{questionIndex + 1}}: {{ question.question_text }}</span><br>
-                            <label class="font-weight-bold" *ngIf="!readOnly"> Question {{questionIndex + 1}} </label>
-                            <input class="form-control" *ngIf="!readOnly" type="text" name="question_{{ questionIndex }}" [(ngModel)]="question.question_text">
-                        </div> <!--card header-->
-                        <!--card body-->
-                        <div class="card-body">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <!--1st option col-->
-                                    <div class="col-xl-6 col-md-12 col-sm-12 order-1 mb-10 mb-xl-0">
-                                        <p *ngIf="readOnly ">{{ getOptionLetter(0) }}. {{ question.options[0] }}</p><br>
-                                        <label *ngIf="!readOnly ">{{ getOptionLetter(0) }}. </label>
-                                        <input class="form-control" *ngIf="!readOnly " type="text" name="question_{{ questionIndex }}_option_0" [(ngModel)]="question.options[0]">
-                                    </div> <!--End 1st opt col-->
-                                    <!--2nd option col-->
-                                    <div class="col-xl-6 col-md-12 col-sm-12 order-2 mb-10 mb-xl-0">
-                                        <p *ngIf="readOnly ">{{ getOptionLetter(1) }}. {{ question.options[1] }}</p><br>
-                                        <label *ngIf="!readOnly ">{{ getOptionLetter(1) }}. </label>
-                                        <input class="form-control" *ngIf="!readOnly " type="text" name="question_{{ questionIndex }}_option_1" [(ngModel)]="question.options[1]">
-                                    </div> <!--End 2nd opt col-->
-                                    <!--3rd option col-->
-                                    <div class="col-xl-6 col-md-12 col-sm-12 order-3 mb-10 mb-xl-0">
-                                        <p *ngIf="readOnly ">{{ getOptionLetter(2) }}. {{ question.options[2] }}</p><br>
-                                        <label *ngIf="!readOnly ">{{ getOptionLetter(2) }}. </label>
-                                        <input class="form-control" *ngIf="!readOnly " type="text" name="question_{{ questionIndex }}_option_2" [(ngModel)]="question.options[2]">
-                                    </div> <!--End 3rd opt col-->
-                                    <!--4th option col-->
-                                    <div class="col-xl-6 col-md-12 col-sm-12 order-4 mb-10 mb-xl-0">
-                                        <p *ngIf="readOnly ">{{ getOptionLetter(3) }}. {{ question.options[3] }}</p><br>
-                                        <label *ngIf="!readOnly ">{{ getOptionLetter(3) }}. </label>
-                                        <input class="form-control" *ngIf="!readOnly " type="text" name="question_{{ questionIndex }}_option_3" [(ngModel)]="question.options[3]">
-                                    </div> <!--End 4th opt col-->
-                                    <!--5th option col-->
-                                    <div class="col-xl-6 col-md-12 col-sm-12 order-5 mb-xl-0">
-                                        <p class="font-weight-bold" *ngIf="readOnly ">Answer: {{ question.correct_option }}</p><br>
-                                        <label *ngIf="!readOnly ">Answer: </label>
-                                        <input class="form-control" *ngIf="!readOnly " type="text" name="question_{{ questionIndex }}_correct_option" [(ngModel)]="question.correct_option">
-                                    </div> <!--End 5th opt col-->
-                                </div> <!--End body row-->
-                            </div> <!--End body fluid-->
-                        </div> <!--End card body-->
-                        <div class="card-footer">
-                            <button class="btn btn-primary btn-block" *ngIf="!readOnly" type="submit">Return</button>
-                        </div> <!--Close card footer-->
-                    </div> <!--Close card shadow-->
-                </div> <!--Close first col-->
-            </div> <!--End row-->
-        </div> <!--End container-->
+<form [formGroup]="editsForm" (ngSubmit)="confirmEdit()">
+    <div formArrayName="questions_array">
+        <div *ngFor="let question of questions_array.controls; let questionIndex = index" [formGroupName]="questionIndex">
+            <div class="container-fluid">
+                <div class="row">
+                    <!--First col-->
+                    <div class="col-xl-12 mt-4 mb-10 mb-xl-0">
+                        <div class="card bg-secondary shadow">
+                            <div class="card-header bg-white border-0">
+                                <span class="font-weight-bold" *ngIf="readOnly">Question {{questionIndex + 1}}: {{ question.get('question').value }}</span><br>
+                                <button type="button" class="btn btn-warning" *ngIf="!readOnly" (click)="removeQuestion(questionIndex)">X</button>
+                                <label class="font-weight-bold" *ngIf="!readOnly"> Question {{questionIndex + 1}} </label>
+                                <input class="form-control" *ngIf="!readOnly" type="text" formControlName="question">
+                            </div> <!--card header-->
+                            <!--card body-->
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        
+                                        <div formArrayName="options" *ngFor="let option of question.get('options').controls; let optionIndex = index" class="col-xl-6 col-md-12 col-sm-12 order-{{optionIndex + 1}} mb-10 mb-xl-0">
+                                            <p *ngIf="readOnly">{{ getOptionLetter(optionIndex) }}. {{ option.value }}</p><br>
+                                            <label *ngIf="!readOnly">{{ getOptionLetter(optionIndex) }}. </label>
+                                            <input class="form-control" *ngIf="!readOnly" type="text" [formControlName]="optionIndex">
+                                        </div>
+                                        
+                                          <div class="col-xl-6 col-md-12 col-sm-12 order-5 mb-xl-0">
+                                            <p class="font-weight-bold" *ngIf="readOnly">Answer: {{ question.get('correct_option').value }}</p><br>
+                                            <label *ngIf="!readOnly">Answer: </label>
+                                            <input class="form-control" *ngIf="!readOnly" type="text" formControlName="correct_option">
+                                          </div>
+                                    </div> <!--End body row-->
+                                </div> <!--End body fluid-->
+                            </div> <!--End card body-->
+                            <!--<div class="card-footer">
+                                <button class="btn btn-primary btn-block" *ngIf="!readOnly" type="submit">Return</button>
+                            </div>--> <!--Close card footer-->
+                        </div> <!--Close card shadow-->
+                    </div> <!--Close first col-->
+                </div> <!--End row-->
+            </div> <!--End container-->
+        </div>
     </div> <!--end NgFor-->
-</form> <!--End form-->
+    <button class="btn btn-primary btn-block" type="submit" *ngIf="!readOnly">Save</button>
+</form> <!--End form--> 
     
-<!--Edit question form-->
-<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+<!--Add question form-->
+<form *ngIf="readOnly" [formGroup]="editForm" (ngSubmit)="onSubmit()">
     <div class="container-fluid">
         <div class="row">
             <!--First col-->
             <div class="col-xl-12 mt-4 mb-10 mb-xl-0">
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
-                        <span class="font-weight-bold" *ngIf="readOnly"> Question {{ questions.length + 1}}</span>
-                        <input class="form-control" type="text" name="question_{{ questions.length + 1 }}" formControlName="question_text">
+                        <span class="font-weight-bold" *ngIf="readOnly"> Question {{ questions?.length + 1}}</span>
+                        <input class="form-control" type="text" name="question_text" formControlName="question_text">
                     </div> <!--card header-->
                     <!--card body-->
                     <div class="card-body">
@@ -80,22 +69,22 @@
                             <div class="row">
                                 <!--1st option col-->
                                 <div class="col-xl-6 col-md-12 order-1 mt-4 mb-10 mb-xl-0">
-                                    <label>{{ getOptionLetter(0) }}.</label>
+                                    <label>a.</label>
                                     <input class="form-control" type="text" name="option_0" formControlName="option_0">
                                 </div> <!--End 1st opt col-->
                                 <!--2nd option col-->
                                 <div class="col-xl-6 col-md-12 order-2 mt-4 mb-10 mb-xl-0">
-                                    <label>{{ getOptionLetter(1) }}.</label>
+                                    <label>b.</label>
                                     <input class="form-control" type="text" name="option_1" formControlName="option_1">
                                 </div> <!--End 2nd opt col-->
                                 <!--3rd option col-->
                                 <div class="col-xl-6 col-md-12 order-3 mt-4 mb-10 mb-xl-0">
-                                    <label>{{ getOptionLetter(2) }}.</label>
+                                    <label>c.</label>
                                     <input class="form-control" type="text" name="option_2" formControlName="option_2">
                                 </div> <!--End 3rd opt col-->
                                 <!--4th option col-->
                                 <div class="col-xl-6 col-md-12 order-4 mt-4 mb-10 mb-xl-0">
-                                    <label>{{ getOptionLetter(3) }}.</label>
+                                    <label>d.</label>
                                     <input class="form-control" type="text" name="option_3" formControlName="option_3">
                                 </div> <!--End 4th opt col-->
                                 <!--5th option col-->

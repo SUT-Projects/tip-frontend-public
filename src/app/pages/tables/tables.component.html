@@ -31,16 +31,16 @@
               <tbody>
 
              
-                <tr *ngFor="let quiz of all_quizzes">
+                <tr *ngFor="let quiz of allQuizzes">
                   <th scope="row">
                     <div class="media align-items-center">
                       <div class="media-body">
-                        <span class="mb-0 text-sm">{{ quiz.quizTitle }}</span>
+                        <span class="mb-0 text-sm">{{ quiz.title }}</span>
                       </div>
                     </div>
                   </th>
                   <td>
-                    {{ quiz.quizDue }}
+                    {{ quiz.last_attempt_date }}
                   </td>
                   <td>
                     <div class="d-flex align-items-center">
@@ -60,7 +60,7 @@
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div ngbDropdownMenu class=" dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" (click)="startQuiz(quiz.quizId)">Start Quiz</a>
+                          <a class="dropdown-item" (click)="startQuiz(quiz._id)">Start Quiz</a>
                           <button type="button" class="dropdown-item"  data-toggle="modal" data-target="#staticBackdrop">View Result</button>
                         </div>
                       </div>

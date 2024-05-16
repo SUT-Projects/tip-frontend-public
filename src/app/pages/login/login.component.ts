@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import user_list from '../../admin-view/sample_user_data.json';
 import { Router } from '@angular/router';
+import { LoginService } from '../../login.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit, OnDestroy {
   user_list = user_list;
   loginForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private loginService: LoginService) {
 
     this.loginForm = this.formBuilder.group({});
     this.loginForm.addControl("email", this.formBuilder.control("", Validators.required));
@@ -20,12 +21,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    //STEVEN//if (sessionStorage checked box is checked) {
+      //prefill this.loginForm.value.email = localStorage.getItem("userEmail");
+      //prefill this.loginForm.value.email = localStorage.getItem("userEmail");
+    //}
   }
   ngOnDestroy() {
   }
 
   onSubmit() {
-    if (this.loginForm.valid && this.matchRecord()) {
+    /*if (this.loginForm.valid && this.matchRecord()) {
       // Form is valid, handle submission logic here
       
       const userType: any = localStorage.getItem('userType');
@@ -38,9 +43,40 @@ export class LoginComponent implements OnInit, OnDestroy {
     } else {
       alert("Wrong login credentials!");
       console.log("FORM IS INVALID!!!")
+    }*/
+
+    if (this.loginForm.valid) {
+      this.loginService.login(this.loginForm.value).subscribe(
+        (response) => {
+          console.log(response);
+          if (response.error === false && response.status === 200) {
+            this.navigateToPage(response.user.user_type);
+            if (response.user.user_type == 2) {
+              localStorage.setItem('userType', 'admin');
+            }
+            if (response.user.user_type == 1) {
+              localStorage.setItem('userType', 'tutor');
+            }
+            if (response.user.user_type == 0) {
+              localStorage.setItem('userType', 'student');
+            }
+            localStorage.setItem('userName', response.user.name);
+            localStorage.setItem('userId', response.user._id);
+            localStorage.setItem('userPassword', response.user.password);
+          } else {
+            alert('Invalid username or password. Please try again.');
+          }
+        },
+        (error) => {
+          console.error(error);
+          alert('Wrong login credentials!');
+        }
+      );
     }
+
   }
 
+  /*
   matchRecord() {
     const enteredEmail = this.loginForm.value.email;
     const enteredPassword = this.loginForm.value.password;
@@ -56,19 +92,19 @@ export class LoginComponent implements OnInit, OnDestroy {
       } 
     }
     return false;
-  }
+  }*/
 
-  navigateToPage(userType: string) {
+  navigateToPage(userType: number) {
     let route: string;
 
   switch (userType) {
-    case 'admin':
+    case 2:
       route = '/admin-view';
       break;
-    case 'tutor':
+    case 1:
       route = '/tutor-quiz';
       break;
-    case 'student':
+    case 0:
       route = '/tables';
       break;
     default:
@@ -77,4 +113,5 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   this.router.navigate([route]);
   }
+
 }
