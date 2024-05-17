@@ -44,6 +44,11 @@ export class QuizComponent {
     this.totalQuestions = this.questions.length;
         console.log(this.allQuizzes);
         console.log(response);
+
+        this.attempts = parseInt(sessionStorage.getItem("attempts" + this.quizId) || '0');
+        this.perc_score = parseFloat(sessionStorage.getItem("perc_score" + this.quizId) == null ? "NA" : sessionStorage.getItem("perc_score" + this.quizId));
+        this.progress = sessionStorage.getItem("progress" + this.quizId) == null ? "0%" : sessionStorage.getItem("progress" + this.quizId);
+
       }
     );
   }
@@ -125,9 +130,9 @@ quizEnd: boolean = false;
     // Store temp attempts, perc_score and progress
     
     
-    sessionStorage.setItem("attempts", (this.attempts).toString());
-    sessionStorage.setItem("perc_score", this.perc_score.toString());
-    sessionStorage.setItem("progress", this.progress);
+    sessionStorage.setItem("attempts" + this.quizId, (this.attempts).toString());
+    sessionStorage.setItem("perc_score" + this.quizId, this.perc_score.toString());
+    sessionStorage.setItem("progress" + this.quizId, this.progress);
   }
 
   attempts = 0;

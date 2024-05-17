@@ -43,7 +43,7 @@
                   </td>-->
                   <td>
                     <div class="d-flex align-items-center">
-                      <span class="mr-2">{{ quizIndex === 0 ? progress : '0%' }}</span>
+                      <span class="mr-2">{{ progress[quiz._id] }}</span>
                       <!--<div>
                         <div class="progress">
                           <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
@@ -52,7 +52,7 @@
                     </div>
                   </td>
                   <td>
-                    {{ quizIndex === 0 ? attempts+'/3' : '0/3' }}
+                    {{ attempts[quiz._id]+'/3' }}
                     <td class="text-right">
                       <div ngbDropdown placement="bottom-right">
                         <a class="btn btn-sm btn-icon-only text-light"  ngbDropdownToggle>
@@ -79,7 +79,7 @@
       </div>
       <div class="modal-body">
         <div class="d-flex justify-content-center">
-          <div class="progress-value">{{ quizIndex === 0 ? perc_score+'%' : 'Please take the test' }}</div>
+          <div class="progress-value">{{ perc_score[quiz._id]+'%' }}</div>
         </div>
       </div>
       <div class="modal-footer">
